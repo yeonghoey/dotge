@@ -19,7 +19,7 @@ public class GameManager : MonoBehaviour {
 	private GameObject scorer;
 
 	void Start () {
-		highScore = 124;
+		highScore = 0.0f;
 		StartCoroutine (GameLoop ());
 	}
 
@@ -36,15 +36,24 @@ public class GameManager : MonoBehaviour {
 	}
 
 	IEnumerator Wait () {
-		Reset ();
+		titleCover.SetActive (true);
+		scoreText.text = Scorer.Format (highScore);
+
+		pressed = false;
+
 		while (!pressed) {
 			yield return null;
 		}
 	}
 
 	IEnumerator Play () {
-		Init ();
-		Debug.Assert (player != null);
+		titleCover.SetActive (false);
+
+		player = Instantiate (prefabPlayer);
+		master = Instantiate (prefabMaster);
+		scorer = Instantiate (prefabScorer);
+		scorer.GetComponent<Scorer> ().scoreText = scoreText;
+
 		yield return null;
 
 		while (player.activeInHierarchy) {
@@ -53,28 +62,15 @@ public class GameManager : MonoBehaviour {
 	}
 
 	IEnumerator End () {
-		Clear ();
-		yield return new WaitForSeconds (3.0f);
-	}
-
-	void Reset () {
-		pressed = false;
-		titleCover.SetActive (true);
-		scoreText.text = Scorer.Format (highScore);
-	}
-
-	void Init () {
-		titleCover.SetActive (false);
-		player = Instantiate (prefabPlayer);
-		master = Instantiate (prefabMaster);
-
-		scorer = Instantiate (prefabScorer);
-		scorer.GetComponent<Scorer> ().scoreText = scoreText;
-	}
-
-	void Clear () {
 		Destroy (player);
 		Destroy (master);
+		float lastScore = scorer.GetComponent<Scorer> ().Score;
 		Destroy (scorer);
+
+		if (lastScore > highScore) {
+			highScore = lastScore;
+		}
+
+		yield return new WaitForSeconds (3.0f);
 	}
 }
