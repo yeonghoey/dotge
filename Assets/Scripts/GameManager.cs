@@ -71,6 +71,6 @@ public class GameManager : MonoBehaviour {
 			highScore = lastScore;
 		}
 
-		yield return new WaitForSeconds (2.0f);
+		yield return new WaitForSeconds (1.5f);
 	}
 }
