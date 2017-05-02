@@ -6,7 +6,13 @@ public class Player : MonoBehaviour {
 
 	public float speed;
 
+	private Animator animator;
 	private Vector2 direction;
+
+	void Start () {
+		animator = GetComponent<Animator> ();
+		direction = Vector2.zero;
+	}
 
 	void Update () {
 		float v = Input.GetAxis ("Vertical");
@@ -20,7 +26,8 @@ public class Player : MonoBehaviour {
 
 	void OnTriggerEnter2D (Collider2D other) {
 		if (other.CompareTag ("Bullet")) {
-			gameObject.SetActive (false);
+			Destroy (other.gameObject);
+			animator.SetTrigger ("Die");
 		}
 	}
 }
