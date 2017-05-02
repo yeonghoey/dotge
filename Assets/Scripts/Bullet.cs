@@ -4,9 +4,8 @@ using UnityEngine;
 
 public class Bullet : MonoBehaviour {
 
+	public Vector2 direction;
 	public float speed;
-
-	private Vector2 direction;
 
 	void Start () {
 		GameObject player = GameObject.FindWithTag ("Player");

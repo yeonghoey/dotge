@@ -8,15 +8,15 @@ public class GameManager : MonoBehaviour {
 	public GameObject titleCover;
 	public Text scoreText;
 
-	public GameObject prefabPlayer;
-	public GameObject prefabMaster;
-	public GameObject prefabScorer;
+	public Player prefabPlayer;
+	public Master prefabMaster;
+	public Scorer prefabScorer;
 
 	private float highScore;
 	private bool pressed;
-	private GameObject player;
-	private GameObject master;
-	private GameObject scorer;
+	private Player player;
+	private Master master;
+	private Scorer scorer;
 
 	void Start () {
 		highScore = 0.0f;
@@ -52,25 +52,25 @@ public class GameManager : MonoBehaviour {
 		player = Instantiate (prefabPlayer);
 		master = Instantiate (prefabMaster);
 		scorer = Instantiate (prefabScorer);
-		scorer.GetComponent<Scorer> ().scoreText = scoreText;
+		scorer.scoreText = scoreText;
 
 		yield return null;
 
-		while (player.activeInHierarchy) {
+		while (player.gameObject.activeInHierarchy) {
 			yield return null;
 		}
 	}
 
 	IEnumerator End () {
-		Destroy (player);
-		Destroy (master);
-		float lastScore = scorer.GetComponent<Scorer> ().Score;
-		Destroy (scorer);
+		Destroy (player.gameObject);
+		Destroy (master.gameObject);
+		Destroy (scorer.gameObject);
 
+		float lastScore = scorer.Score;
 		if (lastScore > highScore) {
 			highScore = lastScore;
 		}
 
-		yield return new WaitForSeconds (3.0f);
+		yield return new WaitForSeconds (2.0f);
 	}
 }

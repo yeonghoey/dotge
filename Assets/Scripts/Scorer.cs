@@ -14,11 +14,7 @@ public class Scorer : MonoBehaviour {
 		return score.ToString ("F1");
 	}
 
-	public float Score {
-		get {
-			return Time.time - startTime;
-		}
-	}
+	public float Score { get; private set; }
 
 	public string ScoreFormatted {
 		get {
@@ -31,6 +27,7 @@ public class Scorer : MonoBehaviour {
 	}
 
 	void Update () {
+		Score = Time.time - startTime;
 		scoreText.text = Format (Score);
 	}
 }
