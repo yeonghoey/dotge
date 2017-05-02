@@ -1,18 +1,25 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour {
 
-	public GameObject cover;
+	public GameObject titleCover;
+	public Text scoreText;
+
 	public GameObject prefabPlayer;
 	public GameObject prefabMaster;
+	public GameObject prefabScorer;
 
+	private float highScore;
 	private bool pressed;
 	private GameObject player;
 	private GameObject master;
+	private GameObject scorer;
 
 	void Start () {
+		highScore = 124;
 		StartCoroutine (GameLoop ());
 	}
 
@@ -52,17 +59,22 @@ public class GameManager : MonoBehaviour {
 
 	void Reset () {
 		pressed = false;
-		cover.SetActive (true);
+		titleCover.SetActive (true);
+		scoreText.text = Scorer.Format (highScore);
 	}
 
 	void Init () {
-		cover.SetActive (false);
+		titleCover.SetActive (false);
 		player = Instantiate (prefabPlayer);
 		master = Instantiate (prefabMaster);
+
+		scorer = Instantiate (prefabScorer);
+		scorer.GetComponent<Scorer> ().scoreText = scoreText;
 	}
 
 	void Clear () {
 		Destroy (player);
 		Destroy (master);
+		Destroy (scorer);
 	}
 }
