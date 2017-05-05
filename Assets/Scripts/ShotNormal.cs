@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Bullet : MonoBehaviour {
+public class ShotNormal : ShotBehaviour {
 
 	public Vector2 direction;
 	public float speed;

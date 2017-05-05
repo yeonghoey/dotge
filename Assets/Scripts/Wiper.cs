@@ -2,10 +2,10 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Border : MonoBehaviour {
+public class Wiper : MonoBehaviour {
 
 	void OnTriggerEnter2D(Collider2D other) {
-		if (other.CompareTag ("Bullet")) {
+		if (other.CompareTag ("Shot")) {
 			Destroy (other.gameObject);
 		}
 	}

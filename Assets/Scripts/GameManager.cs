@@ -59,6 +59,8 @@ public class GameManager : MonoBehaviour {
 		while (player.gameObject.activeInHierarchy) {
 			yield return null;
 		}
+
+		yield return new WaitForSeconds(1);
 	}
 
 	IEnumerator End () {

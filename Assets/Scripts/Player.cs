@@ -25,8 +25,7 @@ public class Player : MonoBehaviour {
 	}
 
 	void OnTriggerEnter2D (Collider2D other) {
-		if (other.CompareTag ("Bullet")) {
-			Destroy (other.gameObject);
+		if (other.CompareTag ("Shot")) {
 			animator.SetTrigger ("Die");
 		}
 	}
