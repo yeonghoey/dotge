@@ -4,32 +4,32 @@ namespace Dotge
 {
     public static class Patterns
     {
-        public delegate void Spawn(Vector2 pos, Vector2 dir);
+        public delegate void SpawnShot(Vector2 pos, Vector2 dir);
         public delegate Vector2 FromTo(Vector2 pos);
 
-        public static void Circle(Vector2 center, float radius, float offset, float interval, Spawn spawn, FromTo fromTo)
+        public static void Circle(Vector2 center, float radius, float offset, float interval, SpawnShot spawnShot, FromTo fromTo)
         {
             for (float degree = offset; degree <= 360.0f; degree += interval)
             {
                 var v = MathHelper.DegreeToVector2(degree);
                 var pos = center + (v * radius);
                 var dir = fromTo(pos);
-                spawn(pos, dir);
+                spawnShot(pos, dir);
             }
         }
 
-        public static void RandomOnCircle(Vector2 center, float radius, int count, Spawn spawn, FromTo fromTo)
+        public static void RandomOnCircle(Vector2 center, float radius, int count, SpawnShot spawnShot, FromTo fromTo)
         {
             for (int i = 0; i < count; i++)
             {
                 var v = Random.insideUnitCircle.normalized;
                 var pos = center + (v * radius);
                 var dir = fromTo(pos);
-                spawn(pos, dir);
+                spawnShot(pos, dir);
             }
         }
 
-        public static void Nway(Vector2 center, Vector2 front, float interval, int count, Spawn spawn)
+        public static void Nway(Vector2 center, Vector2 front, float interval, int count, SpawnShot spawnShot)
         {
             float degree = -(interval * (count / 2));
 
@@ -42,7 +42,7 @@ namespace Dotge
             {
                 var pos = center;
                 var dir = MathHelper.RotateVector2(front, degree).normalized;
-                spawn(pos, dir);
+                spawnShot(pos, dir);
                 degree += interval;
             }
         }

@@ -1,11 +1,13 @@
 ﻿using System.Collections;
 using UnityEngine;
+using P = Dotge.Patterns;
 
 namespace Dotge
 {
     public class Master : MonoBehaviour
     {
         public ConstShot basicShotPrefab;
+        public ConstShot fastShotPrefab;
 
         readonly Vector2 Z = Vector2.zero;
         readonly Vector2 U = Vector2.up;
@@ -41,10 +43,10 @@ namespace Dotge
         {
             for (int i = 0; i < count; i++)
             {
-                Patterns.Nway(U*20, D, 30, 5, BasicShot);
-                Patterns.Nway(D*20, U, 30, 5, BasicShot);
-                Patterns.Nway(L*20, R, 30, 5, BasicShot);
-                Patterns.Nway(R*20, L, 30, 5, BasicShot);
+                P.Nway(U*20, D, 30, 5, BasicShot);
+                P.Nway(D*20, U, 30, 5, BasicShot);
+                P.Nway(L*20, R, 30, 5, BasicShot);
+                P.Nway(R*20, L, 30, 5, BasicShot);
                 yield return new WaitForSeconds(1);
             }
         }
@@ -53,17 +55,27 @@ namespace Dotge
         {
             for (int i = 0; i < count; i++)
             {
-                Patterns.Circle(U*20, 10, 0, 36, BasicShot, _ => D);
-                Patterns.Circle(D*20, 10, 0, 36, BasicShot, _ => U);
-                Patterns.Circle(L*20, 10, 0, 36, BasicShot, _ => R);
-                Patterns.Circle(R*20, 10, 0, 36, BasicShot, _ => L);
+                P.Circle(U*20, 10, 0, 36, BasicShot, _ => D);
+                P.Circle(D*20, 10, 0, 36, BasicShot, _ => U);
+                P.Circle(L*20, 10, 0, 36, BasicShot, _ => R);
+                P.Circle(R*20, 10, 0, 36, BasicShot, _ => L);
                 yield return new WaitForSeconds(1);
             }
         }
 
         void BasicShot(Vector2 pos, Vector2 dir)
         {
-            ConstShot s = Instantiate(basicShotPrefab, parent: this.transform);
+            MakeConstShot(basicShotPrefab, pos, dir);
+        }
+
+        void FastShot(Vector2 pos, Vector2 dir)
+        {
+            MakeConstShot(fastShotPrefab, pos, dir);
+        }
+
+        void MakeConstShot(ConstShot prefab, Vector2 pos, Vector2 dir)
+        {
+            ConstShot s = Instantiate(prefab, parent: this.transform);
             s.transform.position = pos;
             s.direction = dir;
         }
