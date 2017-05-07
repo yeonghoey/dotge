@@ -1,22 +1,22 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
-public class ShotBehaviour : MonoBehaviour
+namespace Dotge
 {
-
-    private bool shownUp = false;
-
-    void OnBecameVisible()
+    public class ShotBehaviour : MonoBehaviour
     {
-        shownUp = true;
-    }
+        private bool shownUp = false;
 
-    void OnTriggerEnter2D(Collider2D other)
-    {
-        if (shownUp && !other.CompareTag("Shot"))
+        void OnBecameVisible()
         {
-            Destroy(gameObject);
+            shownUp = true;
+        }
+
+        void OnTriggerEnter2D(Collider2D other)
+        {
+            if (shownUp && !other.CompareTag("Shot"))
+            {
+                Destroy(gameObject);
+            }
         }
     }
 }

@@ -5,7 +5,7 @@ namespace Dotge
 {
     public class Master : MonoBehaviour
     {
-        public ShotNormal shotNormal;
+        public ConstShot basicShotPrefab;
 
         readonly Vector2 Z = Vector2.zero;
         readonly Vector2 U = Vector2.up;
@@ -32,7 +32,7 @@ namespace Dotge
         {
             for (int i = 0; i < count; i++)
             {
-                Patterns.Circle(Z, 20, 0, 36, SpawnNormalTo, _ => Z);
+                Patterns.Circle(Z, 20, 0, 36, BasicShot, pos => Z - pos);
                 yield return new WaitForSeconds(1);
             }
         }
@@ -41,10 +41,10 @@ namespace Dotge
         {
             for (int i = 0; i < count; i++)
             {
-                Patterns.Nway(U*20, D, 30, 5, SpawnNormal);
-                Patterns.Nway(D*20, U, 30, 5, SpawnNormal);
-                Patterns.Nway(L*20, R, 30, 5, SpawnNormal);
-                Patterns.Nway(R*20, L, 30, 5, SpawnNormal);
+                Patterns.Nway(U*20, D, 30, 5, BasicShot);
+                Patterns.Nway(D*20, U, 30, 5, BasicShot);
+                Patterns.Nway(L*20, R, 30, 5, BasicShot);
+                Patterns.Nway(R*20, L, 30, 5, BasicShot);
                 yield return new WaitForSeconds(1);
             }
         }
@@ -53,24 +53,19 @@ namespace Dotge
         {
             for (int i = 0; i < count; i++)
             {
-                Patterns.Circle(U*20, 10, 0, 36, SpawnNormal, _ => D);
-                Patterns.Circle(D*20, 10, 0, 36, SpawnNormal, _ => U);
-                Patterns.Circle(L*20, 10, 0, 36, SpawnNormal, _ => R);
-                Patterns.Circle(R*20, 10, 0, 36, SpawnNormal, _ => L);
+                Patterns.Circle(U*20, 10, 0, 36, BasicShot, _ => D);
+                Patterns.Circle(D*20, 10, 0, 36, BasicShot, _ => U);
+                Patterns.Circle(L*20, 10, 0, 36, BasicShot, _ => R);
+                Patterns.Circle(R*20, 10, 0, 36, BasicShot, _ => L);
                 yield return new WaitForSeconds(1);
             }
         }
 
-        void SpawnNormal(Vector2 pos, Vector2 dir)
+        void BasicShot(Vector2 pos, Vector2 dir)
         {
-            ShotNormal s = Instantiate(shotNormal, pos, Quaternion.identity, transform);
+            ConstShot s = Instantiate(basicShotPrefab, parent: this.transform);
+            s.transform.position = pos;
             s.direction = dir;
-        }
-
-        void SpawnNormalTo(Vector2 pos, Vector2 target)
-        {
-            var dir = (target - pos).normalized;
-            SpawnNormal(pos, dir);
         }
     }
 }
