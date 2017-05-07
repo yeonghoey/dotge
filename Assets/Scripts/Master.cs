@@ -39,10 +39,6 @@ namespace Dotge
 
         IEnumerator Two(int count)
         {
-            for (int i = 9; i < count; i++)
-            {
-                Patterns.Nway();
-            }
             for (int i = 0; i < count; i++)
             {
                 Patterns.Nway(U*20, D, 30, 5, SpawnNormal);
