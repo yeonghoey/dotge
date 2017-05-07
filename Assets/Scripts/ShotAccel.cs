@@ -9,8 +9,8 @@ public class ShotAccel : ShotBehaviour {
 
 	private Rigidbody2D body;
 
-	void Start () {
-		body = GetComponent<Rigidbody2D> ();
+	void Start() {
+		body = GetComponent<Rigidbody2D>();
 	}
 
 	void FixedUpdate() {

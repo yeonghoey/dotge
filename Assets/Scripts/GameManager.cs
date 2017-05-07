@@ -21,27 +21,27 @@ namespace Dotge
 		private Master master;
 		private Scorer scorer;
 
-		void Start ()
+		void Start()
 		{
 			highScore = 0.0f;
-			StartCoroutine (GameLoop ());
+			StartCoroutine (GameLoop());
 		}
 
-		void Update ()
+		void Update()
 		{
 			pressed = pressed || Input.anyKey;
 		}
 
-		IEnumerator GameLoop ()
+		IEnumerator GameLoop()
 		{
 			while (true) {
-				yield return StartCoroutine (Wait ());
-				yield return StartCoroutine (Play ());
-				yield return StartCoroutine (End ());
+				yield return StartCoroutine (Wait());
+				yield return StartCoroutine (Play());
+				yield return StartCoroutine (End());
 			}
 		}
 
-		IEnumerator Wait ()
+		IEnumerator Wait()
 		{
 			titleCover.SetActive (true);
 			scoreText.text = Scorer.Format (highScore);
@@ -53,7 +53,7 @@ namespace Dotge
 			}
 		}
 
-		IEnumerator Play ()
+		IEnumerator Play()
 		{
 			titleCover.SetActive (false);
 
@@ -71,7 +71,7 @@ namespace Dotge
 			yield return new WaitForSeconds(1);
 		}
 
-		IEnumerator End ()
+		IEnumerator End()
 		{
 			Destroy (player.gameObject);
 			Destroy (master.gameObject);

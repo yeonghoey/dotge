@@ -6,7 +6,7 @@ public class ShotBehaviour : MonoBehaviour {
 
 	private bool shownUp = false;
 
-	void OnBecameVisible () {
+	void OnBecameVisible() {
 		shownUp = true;
 	}
 

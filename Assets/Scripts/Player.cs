@@ -9,12 +9,12 @@ public class Player : MonoBehaviour {
 	private Animator animator;
 	private Vector2 direction;
 
-	void Start () {
-		animator = GetComponent<Animator> ();
+	void Start() {
+		animator = GetComponent<Animator>();
 		direction = Vector2.zero;
 	}
 
-	void Update () {
+	void Update() {
 		float v = Input.GetAxis ("Vertical");
 		float h = Input.GetAxis ("Horizontal");
 		direction = new Vector2 (h, v).normalized;

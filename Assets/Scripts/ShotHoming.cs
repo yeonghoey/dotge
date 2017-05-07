@@ -9,15 +9,15 @@ public class ShotHoming : ShotBehaviour {
 	private Transform player;
 	private Vector2 direction;
 
-	void Start () {
+	void Start() {
 		GameObject go = GameObject.FindWithTag ("Player");
 		if (go != null) {
-			player = go.GetComponent<Transform> ();
+			player = go.GetComponent<Transform>();
 		}
 		direction = Vector2.zero;
 	}
 
-	void Update () {
+	void Update() {
 		if (player != null) {
 			Vector2 to = (player.position - transform.position).normalized;
 			direction = (direction + (to * 0.04f)).normalized;
