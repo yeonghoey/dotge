@@ -17,11 +17,11 @@ namespace Dotge
 		public static Vector2 RotateVector2(Vector2 v, float degree)
 		{
 			float rad = degree * Mathf.Deg2Rad;
-			float sin = Mathf.Sin (rad);
-			float cos = Mathf.Cos (rad);
+			float sin = Mathf.Sin(rad);
+			float cos = Mathf.Cos(rad);
 			float x = (v.x * cos) - (v.y * sin);
 			float y = (v.x * sin) + (v.y * cos);
-			return new Vector2 (x, y);
+			return new Vector2(x, y);
 		}
 	}
 }

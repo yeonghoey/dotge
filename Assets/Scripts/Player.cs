@@ -15,18 +15,18 @@ public class Player : MonoBehaviour {
 	}
 
 	void Update() {
-		float v = Input.GetAxis ("Vertical");
-		float h = Input.GetAxis ("Horizontal");
-		direction = new Vector2 (h, v).normalized;
+		float v = Input.GetAxis("Vertical");
+		float h = Input.GetAxis("Horizontal");
+		direction = new Vector2(h, v).normalized;
 	}
 
 	void FixedUpdate() {
-		transform.Translate (direction * speed * Time.fixedDeltaTime);
+		transform.Translate(direction * speed * Time.fixedDeltaTime);
 	}
 
-	void OnTriggerEnter2D (Collider2D other) {
-		if (other.CompareTag ("Shot")) {
-			animator.SetTrigger ("Die");
+	void OnTriggerEnter2D(Collider2D other) {
+		if (other.CompareTag("Shot")) {
+			animator.SetTrigger("Die");
 		}
 	}
 }

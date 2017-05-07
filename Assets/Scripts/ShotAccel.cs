@@ -14,6 +14,6 @@ public class ShotAccel : ShotBehaviour {
 	}
 
 	void FixedUpdate() {
-		body.AddForce (direction * power * Time.fixedDeltaTime);
+		body.AddForce(direction * power * Time.fixedDeltaTime);
 	}
 }

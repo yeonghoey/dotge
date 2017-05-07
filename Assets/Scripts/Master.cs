@@ -15,20 +15,20 @@ namespace Dotge
 
         void Start()
         {
-            StartCoroutine (GameLoop());
+            StartCoroutine(GameLoop());
         }
 
         IEnumerator GameLoop()
         {
             while (true)
             {
-                yield return StartCoroutine(One (5));
-                yield return StartCoroutine(Two (5));
-                yield return StartCoroutine(Three (5));
+                yield return StartCoroutine(One(5));
+                yield return StartCoroutine(Two(5));
+                yield return StartCoroutine(Three(5));
             }
         }
 
-        IEnumerator One (int count)
+        IEnumerator One(int count)
         {
             for (int i = 0; i < count; i++)
             {
@@ -37,7 +37,7 @@ namespace Dotge
             }
         }
 
-        IEnumerator Two (int count)
+        IEnumerator Two(int count)
         {
             for (int i = 9; i < count; i++)
             {
@@ -53,26 +53,26 @@ namespace Dotge
             }
         }
 
-        IEnumerator Three (int count)
+        IEnumerator Three(int count)
         {
             for (int i = 0; i < count; i++)
             {
-                Patterns.Circle (U*20, 10, 0, 36, SpawnNormal, _ => D);
-                Patterns.Circle (D*20, 10, 0, 36, SpawnNormal, _ => U);
-                Patterns.Circle (L*20, 10, 0, 36, SpawnNormal, _ => R);
-                Patterns.Circle (R*20, 10, 0, 36, SpawnNormal, _ => L);
-                yield return new WaitForSeconds (1);
+                Patterns.Circle(U*20, 10, 0, 36, SpawnNormal, _ => D);
+                Patterns.Circle(D*20, 10, 0, 36, SpawnNormal, _ => U);
+                Patterns.Circle(L*20, 10, 0, 36, SpawnNormal, _ => R);
+                Patterns.Circle(R*20, 10, 0, 36, SpawnNormal, _ => L);
+                yield return new WaitForSeconds(1);
             }
         }
 
         void SpawnNormal(Vector2 pos, Vector2 dir) {
-            ShotNormal s = Instantiate (shotNormal, pos, Quaternion.identity, transform);
+            ShotNormal s = Instantiate(shotNormal, pos, Quaternion.identity, transform);
             s.direction = dir;
         }
 
-        void SpawnNormalTo (Vector2 pos, Vector2 target) {
+        void SpawnNormalTo(Vector2 pos, Vector2 target) {
             var dir = (target - pos).normalized;
-            SpawnNormal (pos, dir);
+            SpawnNormal(pos, dir);
         }
     }
 }

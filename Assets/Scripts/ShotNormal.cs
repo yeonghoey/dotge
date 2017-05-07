@@ -8,6 +8,6 @@ public class ShotNormal : ShotBehaviour {
 	public float speed;
 
 	void FixedUpdate() {
-		transform.Translate (direction * speed * Time.fixedDeltaTime);
+		transform.Translate(direction * speed * Time.fixedDeltaTime);
 	}
 }

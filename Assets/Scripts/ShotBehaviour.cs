@@ -12,7 +12,7 @@ public class ShotBehaviour : MonoBehaviour {
 
 	void OnTriggerEnter2D(Collider2D other) {
 		if (shownUp && !other.CompareTag("Shot")) {
-			Destroy (gameObject);
+			Destroy(gameObject);
 		}
 	}
 }

@@ -10,10 +10,10 @@ namespace Dotge
         public static void Circle(Vector2 center, float radius, float offset, float interval, Spawn spawn, FromTo fromTo)
         {
             for (float degree = offset; degree <= 360.0f; degree += interval) {
-                var v = MathHelper.DegreeToVector2 (degree);
+                var v = MathHelper.DegreeToVector2(degree);
                 var pos = center + (v * radius);
-                var dir = fromTo (pos);
-                spawn (pos, dir);
+                var dir = fromTo(pos);
+                spawn(pos, dir);
             }
         }
 
@@ -22,8 +22,8 @@ namespace Dotge
             for (int i = 0; i < count; i++) {
                 var v = Random.insideUnitCircle.normalized;
                 var pos = center + (v * radius);
-                var dir = fromTo (pos);
-                spawn (pos, dir);
+                var dir = fromTo(pos);
+                spawn(pos, dir);
             }
         }
 
@@ -38,8 +38,8 @@ namespace Dotge
             for (int i = 0; i < count; i++)
             {
                 var pos = center;
-                var dir = MathHelper.RotateVector2 (front, degree).normalized;
-                spawn (pos, dir);
+                var dir = MathHelper.RotateVector2(front, degree).normalized;
+                spawn(pos, dir);
                 degree += interval;
             }
         }
