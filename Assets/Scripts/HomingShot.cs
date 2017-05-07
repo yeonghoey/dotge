@@ -2,7 +2,7 @@
 
 namespace Dotge
 {
-    public class HomingShot : ShotBehaviour
+    public class HomingShot : MonoBehaviour
     {
         public float speed;
 

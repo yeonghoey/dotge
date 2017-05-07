@@ -2,7 +2,7 @@
 
 namespace Dotge
 {
-    public class AccelShot : ShotBehaviour
+    public class AccelShot : MonoBehaviour
     {
         public Vector2 direction;
         public float power;

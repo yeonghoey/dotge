@@ -2,7 +2,7 @@
 
 namespace Dotge
 {
-    public class ConstShot : ShotBehaviour {
+    public class ConstShot : MonoBehaviour {
 
         public float speed;
 
@@ -17,6 +17,11 @@ namespace Dotge
         void FixedUpdate()
         {
             transform.Translate(direction * speed * Time.fixedDeltaTime);
+        }
+
+        void OnBecameInvisible()
+        {
+            Destroy(this.gameObject);
         }
     }
 }
