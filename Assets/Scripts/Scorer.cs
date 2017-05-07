@@ -1,33 +1,36 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.UI;
 
-public class Scorer : MonoBehaviour {
+public class Scorer : MonoBehaviour
+{
+    public Text scoreText;
 
-	public Text scoreText;
+    private float startTime;
 
-	private float startTime;
+    public static string Format(float score)
+    {
+        // Show only 1 decimal place
+        return score.ToString("F1");
+    }
 
-	public static string Format (float score) {
-		// Show only 1 decimal place
-		return score.ToString ("F1");
-	}
+    public float Score { get; private set; }
 
-	public float Score { get; private set; }
+    public string ScoreFormatted
+    {
+        get
+        {
+            return Format(Score);
+        }
+    }
 
-	public string ScoreFormatted {
-		get {
-			return Format (Score);
-		}
-	}
+    void Start()
+    {
+        startTime = Time.time;
+    }
 
-	void Start () {
-		startTime = Time.time;
-	}
-
-	void Update () {
-		Score = Time.time - startTime;
-		scoreText.text = Format (Score);
-	}
+    void Update()
+    {
+        Score = Time.time - startTime;
+        scoreText.text = Format(Score);
+    }
 }
