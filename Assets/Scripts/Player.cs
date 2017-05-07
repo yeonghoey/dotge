@@ -35,8 +35,15 @@ namespace Dotge
                 return;
             }
 #endif
+
             if (other.CompareTag("Shot"))
             {
+#if UNITY_EDITOR
+                if (UnityEditor.EditorPrefs.GetBool("Dotge.quickMode", false))
+                {
+                    gameObject.SetActive(false);
+                }
+#endif
                 animator.SetTrigger("Die");
             }
         }

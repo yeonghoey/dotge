@@ -48,6 +48,13 @@ namespace Dotge
 
             pressed = false;
 
+#if UNITY_EDITOR
+            if (UnityEditor.EditorPrefs.GetBool("Dotge.quickMode", false))
+            {
+                yield break;
+            }
+#endif
+
             while (!pressed)
             {
                 yield return null;
@@ -70,6 +77,13 @@ namespace Dotge
                 yield return null;
             }
 
+#if UNITY_EDITOR
+            if (UnityEditor.EditorPrefs.GetBool("Dotge.quickMode", false))
+            {
+                yield break;
+            }
+#endif
+
             yield return new WaitForSeconds(1);
         }
 
@@ -85,7 +99,13 @@ namespace Dotge
                 highScore = lastScore;
             }
 
-            yield return new WaitForSeconds(1.5f);
+#if UNITY_EDITOR
+            if (UnityEditor.EditorPrefs.GetBool("Dotge.quickMode", false))
+            {
+                yield break;
+            }
+#endif
+            yield return new WaitForSeconds(2.0f);
         }
     }
 }

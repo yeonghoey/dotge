@@ -6,6 +6,7 @@ namespace Dotge
     public class TestHelperWindow : EditorWindow
     {
         bool invincible = false;
+        bool quickMode = false;
 
         [MenuItem("Custom/Test Helper")]
         public static void Open()
@@ -16,6 +17,7 @@ namespace Dotge
         void OnGUI()
         {
             PrefBool("invincible", ref invincible);
+            PrefBool("quickMode", ref quickMode);
         }
 
         void PrefBool(string name, ref bool value)
