@@ -15,7 +15,7 @@ namespace Dotge
         {
             if (shownUp && !other.CompareTag("Shot"))
             {
-                Destroy(gameObject);
+                Destroy(this.gameObject);
             }
         }
     }
