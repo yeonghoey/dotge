@@ -65,12 +65,14 @@ namespace Dotge
             }
         }
 
-        void SpawnNormal(Vector2 pos, Vector2 dir) {
+        void SpawnNormal(Vector2 pos, Vector2 dir)
+        {
             ShotNormal s = Instantiate(shotNormal, pos, Quaternion.identity, transform);
             s.direction = dir;
         }
 
-        void SpawnNormalTo(Vector2 pos, Vector2 target) {
+        void SpawnNormalTo(Vector2 pos, Vector2 target)
+        {
             var dir = (target - pos).normalized;
             SpawnNormal(pos, dir);
         }

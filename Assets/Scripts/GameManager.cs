@@ -33,7 +33,8 @@ namespace Dotge
 
         IEnumerator GameLoop()
         {
-            while (true) {
+            while (true)
+            {
                 yield return StartCoroutine(Wait());
                 yield return StartCoroutine(Play());
                 yield return StartCoroutine(End());
@@ -47,7 +48,8 @@ namespace Dotge
 
             pressed = false;
 
-            while (!pressed) {
+            while (!pressed)
+            {
                 yield return null;
             }
         }
@@ -63,7 +65,8 @@ namespace Dotge
 
             yield return null;
 
-            while (player.gameObject.activeInHierarchy) {
+            while (player.gameObject.activeInHierarchy)
+            {
                 yield return null;
             }
 
@@ -77,7 +80,8 @@ namespace Dotge
             Destroy(scorer.gameObject);
 
             float lastScore = scorer.Score;
-            if (lastScore > highScore) {
+            if (lastScore > highScore)
+            {
                 highScore = lastScore;
             }
 

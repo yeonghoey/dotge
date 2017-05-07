@@ -2,18 +2,20 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ShotAccel : ShotBehaviour {
+public class ShotAccel : ShotBehaviour
+{
+    public Vector2 direction;
+    public float power;
 
-	public Vector2 direction;
-	public float power;
+    private Rigidbody2D body;
 
-	private Rigidbody2D body;
+    void Start()
+    {
+        body = GetComponent<Rigidbody2D>();
+    }
 
-	void Start() {
-		body = GetComponent<Rigidbody2D>();
-	}
-
-	void FixedUpdate() {
-		body.AddForce(direction * power * Time.fixedDeltaTime);
-	}
+    void FixedUpdate()
+    {
+        body.AddForce(direction * power * Time.fixedDeltaTime);
+    }
 }
