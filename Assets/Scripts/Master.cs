@@ -7,6 +7,7 @@ namespace Dotge
     {
         public Camera mainCameraPrefab;
         public Transform wallPrefab;
+        public Transform wiperPrefab;
         public ConstShot basicBulletPrefab;
         public ConstShot fastBulletPrefab;
 
@@ -31,6 +32,7 @@ namespace Dotge
             radius = mainCameraPrefab.orthographicSize * Mathf.Sqrt(2);
 
             BuildWalls();
+            BuildWipers();
             StartCoroutine(GameLoop());
         }
 
@@ -99,21 +101,34 @@ namespace Dotge
             s.direction = dir;
         }
 
+        // Colliders to keep player wihtin the screen
         void BuildWalls()
         {
-            // Build Walls to keep player wihtin the screen
-            float offset = mainCameraPrefab.orthographicSize + 0.5f;
-            float size = offset * 2;
-            float[,] walls = new float[,] {
-                {0, offset, size, 1}, {0, -offset, size, 1},
-                {offset, 0, 1, size}, {-offset, 0, 1, size}
+            float unit = mainCameraPrefab.orthographicSize + 0.5f;
+            BuildBorders(wallPrefab, unit);
+        }
+
+        // Colliders to prevent from leaking GameObjects
+        void BuildWipers()
+        {
+            float unit = mainCameraPrefab.orthographicSize * 2.0f;
+            BuildBorders(wiperPrefab, unit);
+        }
+
+        void BuildBorders(Transform prefab, float unit)
+        {
+            float[,] values = new float[,] {
+                {0, unit, unit*2, 1},  // Up
+                {0, -unit, unit*2, 1}, // Down
+                {-unit, 0, 1, unit*2}, // Left
+                {unit, 0, 1, unit*2}   // Right
             };
 
-            for (int i = 0; i < walls.GetLength(0); i++)
+            for (int i = 0; i < values.GetLength(0); i++)
             {
-                Transform wall = Instantiate(wallPrefab, parent: this.transform);
-                var position = new Vector3(walls[i, 0], walls[i, 1], 0.0f);
-                var scale = new Vector3(walls[i, 2], walls[i, 3], 1.0f);
+                Transform wall = Instantiate(prefab, parent: this.transform);
+                var position = new Vector3(values[i, 0], values[i, 1], 0.0f);
+                var scale = new Vector3(values[i, 2], values[i, 3], 1.0f);
                 wall.position = position;
                 wall.localScale = scale;
             }
