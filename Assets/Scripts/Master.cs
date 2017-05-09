@@ -96,7 +96,7 @@ namespace Dotge
             // Patterns.RandomOnCircle(OO, Radius, 10, AccelBullet, pos => OO - pos);
             // Patterns.RandomOnCircle(OO, Radius, 2, WhizBullet, pos => OO - pos);
             Patterns.RandomOnCircle(OO, Radius, 1, HomingBullet, pos => OO - pos);
-            yield return new WaitForSeconds(10);
+            yield return new WaitForSeconds(1);
         }
 
         // ConstShots

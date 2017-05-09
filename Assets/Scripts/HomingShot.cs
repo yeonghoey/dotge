@@ -6,6 +6,7 @@ namespace Dotge
     public class HomingShot : MonoBehaviour
     {
         public float speed;
+        public float angularSpeed;
 
         [System.NonSerialized]
         public Transform player;
@@ -16,31 +17,19 @@ namespace Dotge
         void Start()
         {
             direction = direction.normalized;
-            StartCoroutine(Homing());
-        }
-
-        IEnumerator Homing()
-        {
-            while (true)
-            {
-              Vector2 to = player.position - transform.position;
-              float degree = Vector2.Angle(to, direction);
-              // if (degree >= 0)
-              // {
-              //     degree = Mathf.Min(degree, 30);
-              // }
-              // else
-              // {
-              //     degree = Mathf.Max(degree, -30);
-              // }
-              Debug.Log(degree);
-              direction = MathHelper.RotateVector2(direction, degree);
-              yield return new WaitForSeconds(1);
-            }
         }
 
         void Update()
         {
+            Vector2 to = player.position - transform.position;
+            float degree = Vector2.Angle(direction, to);
+            bool clockwise = (direction.x * to.y - direction.y * to.x) < 0;
+            if (clockwise) {
+                degree = -degree;
+            }
+            float angular = angularSpeed * Time.deltaTime;
+            degree = Mathf.Clamp(degree, -angular, angular);
+            direction = MathHelper.RotateVector2(direction, degree);
         }
 
         void FixedUpdate()
