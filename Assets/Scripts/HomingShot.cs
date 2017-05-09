@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System.Collections;
+using UnityEngine;
 
 namespace Dotge
 {
@@ -6,31 +7,50 @@ namespace Dotge
     {
         public float speed;
 
-        private Transform player;
-        private Vector2 direction;
+        [System.NonSerialized]
+        public Transform player;
+
+        [System.NonSerialized]
+        public Vector2 direction;
 
         void Start()
         {
-            GameObject go = GameObject.FindWithTag("Player");
-            if (go != null)
+            direction = direction.normalized;
+            StartCoroutine(Homing());
+        }
+
+        IEnumerator Homing()
+        {
+            while (true)
             {
-                player = go.GetComponent<Transform>();
+              Vector2 to = player.position - transform.position;
+              float degree = Vector2.Angle(to, direction);
+              // if (degree >= 0)
+              // {
+              //     degree = Mathf.Min(degree, 30);
+              // }
+              // else
+              // {
+              //     degree = Mathf.Max(degree, -30);
+              // }
+              Debug.Log(degree);
+              direction = MathHelper.RotateVector2(direction, degree);
+              yield return new WaitForSeconds(1);
             }
-            direction = Vector2.zero;
         }
 
         void Update()
         {
-            if (player != null)
-            {
-                Vector2 to = (player.position - transform.position).normalized;
-                direction = (direction + (to * 0.04f)).normalized;
-            }
         }
 
         void FixedUpdate()
         {
             transform.Translate(direction * Time.fixedDeltaTime * speed);
+        }
+
+        void OnBecameInvisible()
+        {
+            Destroy(this.gameObject);
         }
     }
 }

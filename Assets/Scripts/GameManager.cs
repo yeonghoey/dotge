@@ -64,6 +64,7 @@ namespace Dotge
 
             player = Instantiate(prefabPlayer);
             master = Instantiate(prefabMaster);
+            master.player = player.transform;
             scorer = Instantiate(prefabScorer);
             scorer.scoreText = scoreText;
 

@@ -11,8 +11,10 @@ namespace Dotge
         public ConstShot basicBulletPrefab;
         public ConstShot fastBulletPrefab;
         public AccelShot accelBulletPrefab;
+        public AccelShot whizBulletPrefab;
+        public HomingShot homingBulletPrefab;
 
-        [System.NonSerializedAttribute]
+        [System.NonSerialized]
         public Transform player;
 
         // Values relating the screen
@@ -91,11 +93,13 @@ namespace Dotge
 
         IEnumerator PhaseX(int n)
         {
-            Patterns.RandomOnCircle(OO, Radius, 10, AccelBullet, pos => OO - pos);
-            yield return null;
+            // Patterns.RandomOnCircle(OO, Radius, 10, AccelBullet, pos => OO - pos);
+            // Patterns.RandomOnCircle(OO, Radius, 2, WhizBullet, pos => OO - pos);
+            Patterns.RandomOnCircle(OO, Radius, 1, HomingBullet, pos => OO - pos);
+            yield return new WaitForSeconds(10);
         }
 
-        // Factory Methods for ConstShots
+        // ConstShots
         void BasicBullet(Vector2 pos, Vector2 dir)
         {
             SpawnConstShot(basicBulletPrefab, pos, dir);
@@ -112,16 +116,34 @@ namespace Dotge
             s.direction = dir;
         }
 
-        // Factory Methods for AccelShots
+        // AccelShots
         void AccelBullet(Vector2 pos, Vector2 dir)
         {
             SpawnAccelShot(accelBulletPrefab, pos, dir);
+        }
+
+        void WhizBullet(Vector2 pos, Vector2 dir)
+        {
+            SpawnAccelShot(whizBulletPrefab, pos, dir);
         }
 
         void SpawnAccelShot(AccelShot prefab, Vector2 pos, Vector2 dir)
         {
             AccelShot s = Instantiate(prefab, pos, Quaternion.identity, this.transform);
             s.direction = dir;
+        }
+
+        // HomingShots
+        void HomingBullet(Vector2 pos, Vector2 dir)
+        {
+            SpawnHomingShot(homingBulletPrefab, pos, dir);
+        }
+
+        void SpawnHomingShot(HomingShot prefab, Vector2 pos, Vector2 dir)
+        {
+            HomingShot s = Instantiate(prefab, pos, Quaternion.identity, this.transform);
+            s.direction = dir;
+            s.player = player;
         }
 
         void BuildBorders(Transform prefab, float unit, float thickness)
@@ -136,7 +158,7 @@ namespace Dotge
 
             for (int i = 0; i < values.GetLength(0); i++)
             {
-                Transform wall = Instantiate(prefab, parent: this.transform);
+                Transform wall = Instantiate(prefab, this.transform);
                 var position = new Vector3(values[i, 0], values[i, 1], 0.0f);
                 var scale = new Vector3(values[i, 2], values[i, 3], 1.0f);
                 wall.position = position;
