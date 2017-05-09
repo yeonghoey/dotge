@@ -95,13 +95,13 @@ namespace Dotge
         {
             Patterns.Circle(OO, Radius, 0, 36, BasicBullet, pos => OO - pos);
             yield return new WaitForSeconds(1);
-            Patterns.Circle(OO, Radius, 0, 36, FastBullet, pos => OO - pos);
+            Patterns.Circle(OO, Radius, 0, 72, FastBullet, pos => OO - pos);
             yield return new WaitForSeconds(1);
             Patterns.Circle(OO, Radius, 0, 36, AccelBullet, pos => OO - pos);
             yield return new WaitForSeconds(1);
-            Patterns.Circle(OO, Radius, 0, 36, WhizBullet, pos => OO - pos);
+            Patterns.Circle(OO, Radius, 36, 72, WhizBullet, pos => OO - pos);
             yield return new WaitForSeconds(1);
-            Patterns.Circle(OO, Radius, 0, 36, HomingBullet, pos => OO - pos);
+            Patterns.Circle(OO, Radius, 0, 72, HomingBullet, pos => OO - pos);
             yield return new WaitForSeconds(1);
             // Patterns.RandomOnCircle(OO, Radius, 10, AccelBullet, pos => OO - pos);
             // Patterns.RandomOnCircle(OO, Radius, 2, WhizBullet, pos => OO - pos);
