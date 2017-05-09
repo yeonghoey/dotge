@@ -4,19 +4,25 @@ namespace Dotge
 {
     public class AccelShot : MonoBehaviour
     {
-        public Vector2 direction;
+        public Rigidbody2D body;
         public float power;
 
-        private Rigidbody2D body;
+        [System.NonSerialized]
+        public Vector2 direction = Vector2.zero;
 
         void Start()
         {
-            body = GetComponent<Rigidbody2D>();
+            direction = direction.normalized;
         }
 
         void FixedUpdate()
         {
             body.AddForce(direction * power * Time.fixedDeltaTime);
+        }
+
+        void OnBecameInvisible()
+        {
+            Destroy(this.gameObject);
         }
     }
 
