@@ -30,19 +30,13 @@ namespace Dotge
         void OnTriggerEnter2D(Collider2D other)
         {
 #if UNITY_EDITOR
-            if (UnityEditor.EditorPrefs.GetBool("Dotge.invincible", false))
-            {
-                return;
-            }
+            if (DevSettings.Invincible) return;
 #endif
 
             if (other.CompareTag("Shot"))
             {
 #if UNITY_EDITOR
-                if (UnityEditor.EditorPrefs.GetBool("Dotge.quickMode", false))
-                {
-                    gameObject.SetActive(false);
-                }
+                if (DevSettings.QuickMode) gameObject.SetActive(false);
 #endif
                 animator.SetTrigger("Die");
             }

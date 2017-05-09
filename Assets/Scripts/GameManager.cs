@@ -49,10 +49,7 @@ namespace Dotge
             pressed = false;
 
 #if UNITY_EDITOR
-            if (UnityEditor.EditorPrefs.GetBool("Dotge.quickMode", false))
-            {
-                yield break;
-            }
+            if (DevSettings.QuickMode) yield break;
 #endif
 
             while (!pressed)
@@ -78,10 +75,7 @@ namespace Dotge
             }
 
 #if UNITY_EDITOR
-            if (UnityEditor.EditorPrefs.GetBool("Dotge.quickMode", false))
-            {
-                yield break;
-            }
+            if (DevSettings.QuickMode) yield break;
 #endif
 
             yield return new WaitForSeconds(1);
@@ -100,10 +94,7 @@ namespace Dotge
             }
 
 #if UNITY_EDITOR
-            if (UnityEditor.EditorPrefs.GetBool("Dotge.quickMode", false))
-            {
-                yield break;
-            }
+            if (DevSettings.QuickMode) yield break;
 #endif
             yield return new WaitForSeconds(2.0f);
         }
