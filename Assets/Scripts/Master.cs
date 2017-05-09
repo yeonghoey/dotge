@@ -10,11 +10,16 @@ namespace Dotge
         public Transform wiperPrefab;
         public ConstShot basicBulletPrefab;
         public ConstShot fastBulletPrefab;
+        public AccelShot accelBulletPrefab;
+
+        [System.NonSerializedAttribute]
+        public Transform player;
 
         // Values relating the screen
         // Used as units of pattern's spawn points
-        private float side;   // Side of the screen
-        private float radius; // Radius of the circumscribed circle about the screen
+        private float Half;   // Side of the screen
+        private float Side;   // Side of the screen
+        private float Radius; // Radius of the circumscribed circle about the screen
 
         readonly Vector2 OO = Vector2.zero;
         readonly Vector2 NN = Vector2.up;
@@ -28,19 +33,23 @@ namespace Dotge
 
         void Start()
         {
-            side = mainCameraPrefab.orthographicSize * 2;
-            radius = mainCameraPrefab.orthographicSize * Mathf.Sqrt(2);
+            Half = mainCameraPrefab.orthographicSize;
+            Side = Half * 2;
+            Radius = Half * Mathf.Sqrt(2);
 
-            BuildWalls();
-            BuildWipers();
+            // Keep player wihtin the screen
+            BuildBorders(wallPrefab, Half, thickness: 2.0f);
+            // Prevent from leaking GameObjects
+            BuildBorders(wiperPrefab, Half * 2.0f, thickness: 10.0f);
+
             StartCoroutine(GameLoop());
         }
 
         IEnumerator GameLoop()
         {
-            yield return StartCoroutine(Phase1());
-            yield return StartCoroutine(Phase2());
-            yield return StartCoroutine(Phase3());
+            // yield return StartCoroutine(Phase1());
+            // yield return StartCoroutine(Phase2());
+            // yield return StartCoroutine(Phase3());
 
             for (int i = 0; ; i++)
             {
@@ -52,21 +61,21 @@ namespace Dotge
         {
             // for (int i = 0; i < 4; i++)
             // {
-            //     Patterns.Circle(OO, radius, i * 6.0f, 36, BasicBullet, pos => OO - pos);
+            //     Patterns.Circle(OO, Radius, i * 6.0f, 36, BasicBullet, pos => OO - pos);
             //     yield return new WaitForSeconds(1);
-            //     Patterns.Circle(OO, radius, i * 6.0f, 18, BasicBullet, pos => OO - pos);
+            //     Patterns.Circle(OO, Radius, i * 6.0f, 18, BasicBullet, pos => OO - pos);
             //     yield return new WaitForSeconds(1);
             // }
 
             // yield return new WaitForSeconds(5);
 
-            Patterns.Circle(WW*radius, side/3, 0, 30, BasicBullet, _ => EE);
-            Patterns.Circle(EE*radius, side/3, 0, 30, BasicBullet, _ => WW);
+            Patterns.Circle(WW*Radius, Side/3, 0, 30, BasicBullet, _ => EE);
+            Patterns.Circle(EE*Radius, Side/3, 0, 30, BasicBullet, _ => WW);
             yield return new WaitForSeconds(1);
-            Patterns.Circle(NN*radius, side/3, 0, 30, BasicBullet, _ => SS);
-            Patterns.Circle(SS*radius, side/3, 0, 30, BasicBullet, _ => NN);
+            Patterns.Circle(NN*Radius, Side/3, 0, 30, BasicBullet, _ => SS);
+            Patterns.Circle(SS*Radius, Side/3, 0, 30, BasicBullet, _ => NN);
             yield return new WaitForSeconds(2);
-            Patterns.Circle(OO, radius, 0, 10, BasicBullet, pos => OO - pos);
+            Patterns.Circle(OO, Radius, 0, 10, BasicBullet, pos => OO - pos);
             yield return null;
         }
 
@@ -82,9 +91,11 @@ namespace Dotge
 
         IEnumerator PhaseX(int n)
         {
+            Patterns.RandomOnCircle(OO, Radius, 10, AccelBullet, pos => OO - pos);
             yield return null;
         }
 
+        // Factory Methods for ConstShots
         void BasicBullet(Vector2 pos, Vector2 dir)
         {
             SpawnConstShot(basicBulletPrefab, pos, dir);
@@ -101,27 +112,26 @@ namespace Dotge
             s.direction = dir;
         }
 
-        // Colliders to keep player wihtin the screen
-        void BuildWalls()
+        // Factory Methods for AccelShots
+        void AccelBullet(Vector2 pos, Vector2 dir)
         {
-            float unit = mainCameraPrefab.orthographicSize + 0.5f;
-            BuildBorders(wallPrefab, unit);
+            SpawnAccelShot(accelBulletPrefab, pos, dir);
         }
 
-        // Colliders to prevent from leaking GameObjects
-        void BuildWipers()
+        void SpawnAccelShot(AccelShot prefab, Vector2 pos, Vector2 dir)
         {
-            float unit = mainCameraPrefab.orthographicSize * 2.0f;
-            BuildBorders(wiperPrefab, unit);
+            AccelShot s = Instantiate(prefab, pos, Quaternion.identity, this.transform);
+            s.direction = dir;
         }
 
-        void BuildBorders(Transform prefab, float unit)
+        void BuildBorders(Transform prefab, float unit, float thickness)
         {
+            float offset = unit + (thickness * 0.5f);
             float[,] values = new float[,] {
-                {0, unit, unit*2, 1},  // Up
-                {0, -unit, unit*2, 1}, // Down
-                {-unit, 0, 1, unit*2}, // Left
-                {unit, 0, 1, unit*2}   // Right
+                {0, offset, offset*2, thickness},  // Up
+                {0, -offset, offset*2, thickness}, // Down
+                {-offset, 0, thickness, offset*2}, // Left
+                {offset, 0, thickness, offset*2}   // Right
             };
 
             for (int i = 0; i < values.GetLength(0); i++)
