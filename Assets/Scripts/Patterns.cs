@@ -41,6 +41,18 @@ namespace Dotge
             Line(tl, bl, 0, countBySide, spawnShot, fromTo);
         }
 
+        public static void Diamond(Vector2 center, float width, float height, int countBySide, SpawnShot spawnShot, FromTo fromTo)
+        {
+            Vector2 t = new Vector2(center.x, center.y - (height * 0.5f));
+            Vector2 r = new Vector2(center.x + (width * 0.5f), center.y);
+            Vector2 b = new Vector2(center.x, center.y + (height * 0.5f));
+            Vector2 l = new Vector2(center.x - (width * 0.5f), center.y);
+            Line(t, r, 0, countBySide, spawnShot, fromTo);
+            Line(r, b, 0, countBySide, spawnShot, fromTo);
+            Line(b, l, 0, countBySide, spawnShot, fromTo);
+            Line(l, t, 0, countBySide, spawnShot, fromTo);
+        }
+
         public static void Line(Vector2 a, Vector2 b, float padding, int count, SpawnShot spawnShot, FromTo fromTo)
         {
             Vector2 d = (b - a).normalized;
