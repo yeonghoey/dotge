@@ -7,12 +7,12 @@ namespace Dotge
 {
     public class GameManager : MonoBehaviour
     {
+        public Player playerPrefab;
+        public Master masterPrefab;
+        public Scorer scorerPrefab;
+
         public GameObject titleCover;
         public Text scoreText;
-
-        public Player prefabPlayer;
-        public Master prefabMaster;
-        public Scorer prefabScorer;
 
         private float highScore;
         private bool pressed;
@@ -62,10 +62,10 @@ namespace Dotge
         {
             titleCover.SetActive(false);
 
-            player = Instantiate(prefabPlayer);
-            master = Instantiate(prefabMaster);
+            player = Instantiate(playerPrefab);
+            master = Instantiate(masterPrefab);
             master.player = player.transform;
-            scorer = Instantiate(prefabScorer);
+            scorer = Instantiate(scorerPrefab);
             scorer.scoreText = scoreText;
 
             yield return null;
