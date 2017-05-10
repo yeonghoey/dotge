@@ -29,6 +29,18 @@ namespace Dotge
             }
         }
 
+        public static void Rect(Vector2 center, float width, float height, int countBySide, SpawnShot spawnShot, FromTo fromTo)
+        {
+            Vector2 tl = new Vector2(center.x - (width * 0.5f), center.y - (height * 0.5f));
+            Vector2 br = new Vector2(center.x + (width * 0.5f), center.y + (height * 0.5f));
+            Vector2 tr = new Vector2(br.x, tl.y);
+            Vector2 bl = new Vector2(tl.x, br.y);
+            Line(tl, tr, 0, countBySide, spawnShot, fromTo);
+            Line(tr, br, 0, countBySide, spawnShot, fromTo);
+            Line(bl, br, 0, countBySide, spawnShot, fromTo);
+            Line(tl, bl, 0, countBySide, spawnShot, fromTo);
+        }
+
         public static void Line(Vector2 a, Vector2 b, float padding, int count, SpawnShot spawnShot, FromTo fromTo)
         {
             Vector2 d = (b - a).normalized;
