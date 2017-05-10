@@ -23,15 +23,14 @@ namespace Dotge
 
         void FixedUpdate()
         {
-            Vector2 diff = direction * speed * Time.fixedDeltaTime;
-            center += diff;
-            Vector2 dv = (Vector2)transform.position + diff - center;
+            Vector2 dv = (Vector2)transform.position - center;
             float degree = angularSpeed * Time.fixedDeltaTime;
             if (clockwise)
             {
                 degree = -degree;
             }
             Vector2 ov = MathHelper.RotateVector2(dv, degree);
+            center += direction * speed * Time.fixedDeltaTime;
             transform.position = ov + center;
         }
 
