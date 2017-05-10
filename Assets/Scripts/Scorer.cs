@@ -1,36 +1,39 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
 
-public class Scorer : MonoBehaviour
+namespace Dotge
 {
-    public Text scoreText;
-
-    private float startTime;
-
-    public static string Format(float score)
+    public class Scorer : MonoBehaviour
     {
-        // Show only 1 decimal place
-        return score.ToString("F1");
-    }
+        public Text scoreText;
 
-    public float Score { get; private set; }
+        private float startTime;
 
-    public string ScoreFormatted
-    {
-        get
+        public static string Format(float score)
         {
-            return Format(Score);
+            // Show only 1 decimal place
+            return score.ToString("F1");
         }
-    }
 
-    void Start()
-    {
-        startTime = Time.time;
-    }
+        public float Score { get; private set; }
 
-    void Update()
-    {
-        Score = Time.time - startTime;
-        scoreText.text = Format(Score);
+        public string ScoreFormatted
+        {
+            get
+            {
+                return Format(Score);
+            }
+        }
+
+        void Start()
+        {
+            startTime = Time.time;
+        }
+
+        void Update()
+        {
+            Score = Time.time - startTime;
+            scoreText.text = Format(Score);
+        }
     }
 }

@@ -1,23 +1,26 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
 
-public class Blinker : MonoBehaviour
+namespace Dotge
 {
-    public float speed;
-
-    private Text text;
-    private string message;
-
-    void Start()
+    public class Blinker : MonoBehaviour
     {
-        text = GetComponent<Text>();
-        message = text.text;
-    }
+        public float speed;
 
-    void Update()
-    {
-        float v = Mathf.PingPong(Time.time * speed, 1.0f);
-        bool show = Mathf.Round(v) > 0;
-        text.text = show ? message : "";
+        private Text text;
+        private string message;
+
+        void Start()
+        {
+            text = GetComponent<Text>();
+            message = text.text;
+        }
+
+        void Update()
+        {
+            float v = Mathf.PingPong(Time.time * speed, 1.0f);
+            bool show = Mathf.Round(v) > 0;
+            text.text = show ? message : "";
+        }
     }
 }

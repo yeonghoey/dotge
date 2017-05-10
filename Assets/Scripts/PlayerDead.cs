@@ -1,21 +1,22 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
-public class PlayerDead : StateMachineBehaviour
+namespace Dotge
 {
-    override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
+    public class PlayerDead : StateMachineBehaviour
     {
-        // Stop Scoring
-        GameObject scorer = GameObject.FindWithTag("Scorer");
-        if (scorer != null)
+        override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
         {
-            scorer.SetActive(false);
+            // Stop Scoring
+            GameObject scorer = GameObject.FindWithTag("Scorer");
+            if (scorer != null)
+            {
+                scorer.SetActive(false);
+            }
         }
-    }
 
-    override public void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
-    {
-        animator.gameObject.SetActive(false);
+        override public void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
+        {
+            animator.gameObject.SetActive(false);
+        }
     }
 }
