@@ -10,7 +10,6 @@ namespace Dotge
 
         [System.NonSerialized]
         public Transform player;
-
         [System.NonSerialized]
         public Vector2 direction;
 

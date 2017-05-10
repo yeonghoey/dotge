@@ -13,6 +13,7 @@ namespace Dotge
         public AccelShot accelBulletPrefab;
         public AccelShot whizBulletPrefab;
         public HomingShot homingBulletPrefab;
+        public SwirlShot swrilBulletPrefab;
 
         [System.NonSerialized]
         public Transform player;
@@ -71,13 +72,13 @@ namespace Dotge
 
             // yield return new WaitForSeconds(5);
 
-            Patterns.Circle(WW*Radius, Side/3, 0, 30, BasicBullet, _ => EE);
-            Patterns.Circle(EE*Radius, Side/3, 0, 30, BasicBullet, _ => WW);
-            yield return new WaitForSeconds(1);
-            Patterns.Circle(NN*Radius, Side/3, 0, 30, BasicBullet, _ => SS);
-            Patterns.Circle(SS*Radius, Side/3, 0, 30, BasicBullet, _ => NN);
-            yield return new WaitForSeconds(2);
-            Patterns.Circle(OO, Radius, 0, 10, BasicBullet, pos => OO - pos);
+            // Patterns.Circle(WW*Radius, Side/3, 0, 30, BasicBullet, _ => EE);
+            // Patterns.Circle(EE*Radius, Side/3, 0, 30, BasicBullet, _ => WW);
+            // yield return new WaitForSeconds(1);
+            // Patterns.Circle(NN*Radius, Side/3, 0, 30, BasicBullet, _ => SS);
+            // Patterns.Circle(SS*Radius, Side/3, 0, 30, BasicBullet, _ => NN);
+            // yield return new WaitForSeconds(2);
+            // Patterns.Circle(OO, Radius, 0, 10, BasicBullet, pos => OO - pos);
             yield return null;
         }
 
@@ -93,16 +94,22 @@ namespace Dotge
 
         IEnumerator PhaseX(int n)
         {
-            Patterns.Circle(OO, Radius, 0, 36, BasicBullet, pos => OO - pos);
-            yield return new WaitForSeconds(1);
-            Patterns.Circle(OO, Radius, 0, 72, FastBullet, pos => OO - pos);
-            yield return new WaitForSeconds(1);
-            Patterns.Circle(OO, Radius, 0, 36, AccelBullet, pos => OO - pos);
-            yield return new WaitForSeconds(1);
-            Patterns.Circle(OO, Radius, 36, 72, WhizBullet, pos => OO - pos);
-            yield return new WaitForSeconds(1);
-            Patterns.Circle(OO, Radius, 0, 72, HomingBullet, pos => OO - pos);
-            yield return new WaitForSeconds(1);
+            // Patterns.Circle(OO, 5, 0, 72, SwirlBullet, pos => OO - pos);
+            Patterns.Circle(NW*Radius, 5, 0, 60, (p, d) => SwirlBullet(p, d, NW*Radius, true), _ => SE);
+            Patterns.Circle(SE*Radius, 5, 0, 60, (p, d) => SwirlBullet(p, d, SE*Radius, true), _ => NW);
+            Patterns.Circle(NE*Radius, 5, 0, 60, (p, d) => SwirlBullet(p, d, NE*Radius, true), _ => SW);
+            Patterns.Circle(SW*Radius, 5, 0, 60, (p, d) => SwirlBullet(p, d, SW*Radius, true), _ => NE);
+            yield return new WaitForSeconds(100);
+            // Patterns.Circle(OO, Radius, 0, 36, BasicBullet, pos => OO - pos);
+            // yield return new WaitForSeconds(1);
+            // Patterns.Circle(OO, Radius, 0, 72, FastBullet, pos => OO - pos);
+            // yield return new WaitForSeconds(1);
+            // Patterns.Circle(OO, Radius, 0, 36, AccelBullet, pos => OO - pos);
+            // yield return new WaitForSeconds(1);
+            // Patterns.Circle(OO, Radius, 36, 72, WhizBullet, pos => OO - pos);
+            // yield return new WaitForSeconds(1);
+            // Patterns.Circle(OO, Radius, 0, 72, HomingBullet, pos => OO - pos);
+            // yield return new WaitForSeconds(1);
             // Patterns.RandomOnCircle(OO, Radius, 10, AccelBullet, pos => OO - pos);
             // Patterns.RandomOnCircle(OO, Radius, 2, WhizBullet, pos => OO - pos);
             // Patterns.RandomOnCircle(OO, Radius, 1, HomingBullet, pos => OO - pos);
@@ -153,6 +160,20 @@ namespace Dotge
             HomingShot s = Instantiate(prefab, pos, Quaternion.identity, this.transform);
             s.direction = dir;
             s.player = player;
+        }
+
+        // SwrilShots
+        void SwirlBullet(Vector2 pos, Vector2 dir, Vector2 center, bool clockwise = false)
+        {
+            SpawnSwirlShot(swrilBulletPrefab, pos, dir, center, clockwise);
+        }
+
+        void SpawnSwirlShot(SwirlShot prefab, Vector2 pos, Vector2 dir, Vector2 center, bool clockwise)
+        {
+            SwirlShot s = Instantiate(prefab, pos, Quaternion.identity, this.transform);
+            s.direction = dir;
+            s.center = center;
+            s.clockwise = clockwise;
         }
 
         void BuildBorders(Transform prefab, float unit, float thickness)

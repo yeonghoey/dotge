@@ -204,7 +204,7 @@ TextureImporter:
       - {x: 118, y: -22}
       - {x: 118, y: 22}
       - {x: 74, y: 22}
-  spritePackingTag: Player
+  spritePackingTag: Main
   userData: 
   assetBundleName: 
   assetBundleVariant: 
