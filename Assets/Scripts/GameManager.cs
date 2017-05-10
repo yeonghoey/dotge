@@ -16,6 +16,7 @@ namespace Dotge
 
         private float highScore;
         private bool pressed;
+
         private Player player;
         private Master master;
         private Scorer scorer;
