@@ -79,7 +79,7 @@ namespace Dotge
             if (DevSettings.QuickMode) yield break;
 #endif
 
-            yield return new WaitForSeconds(1);
+            yield return new WaitForSeconds(2.0f);
         }
 
         IEnumerator End()
