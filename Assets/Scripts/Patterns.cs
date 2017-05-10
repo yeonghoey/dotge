@@ -29,6 +29,24 @@ namespace Dotge
             }
         }
 
+        public static void Line(Vector2 a, Vector2 b, float padding, int count, SpawnShot spawnShot, FromTo fromTo)
+        {
+            Vector2 d = (b - a).normalized;
+            Vector2 aa = a + (d * padding);
+            Vector2 bb = b - (d * padding);
+
+            Debug.Assert(count > 1);
+            Vector2 unit = d * ((bb - aa).magnitude / (count - 1));
+
+            var pos = aa;
+            for (int i = 0; i < count; i++)
+            {
+                var dir = fromTo(pos);
+                spawnShot(pos, dir);
+                pos += unit;
+            }
+        }
+
         public static void Nway(Vector2 center, Vector2 front, float interval, int count, SpawnShot spawnShot)
         {
             float degree = -(interval * (count / 2));
