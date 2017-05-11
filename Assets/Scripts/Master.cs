@@ -98,9 +98,9 @@ namespace Dotge
             //               (p, d) => Patterns.Rect(p, 3.0f, 3.0f, 4, _ => d, BasicBullet));
 
             Patterns.Line(NW*Radius, NE*Radius, 3.0f, 3, _ => SS,
-                          (p, d) => Patterns.Circle(p, 5, 0, 60, _ => d,
+                          (p, d) => Patterns.Circle(p, 6, 0, 60, _ => d,
                                                     (pp, dd) => SwirlBullet(pp, dd, p, true)));
-            // Patterns.Diamond(SS*Radius, 10.0f, 10.0f, 4, _ => NN, BasicBullet);
+            // Patterns.Diamond(SS*Radius, 10.0f, 10.0f,- Replace: {{c5::L drag}} 4, _ => NN, BasicBullet);
 
             // Patterns.Circle(NW*Radius, 5, 0, 60, _ => SE, (p, d) => SwirlBullet(p, d, NW*Radius, true));
             // Patterns.Circle(SE*Radius, 5, 0, 60, _ => NW, (p, d) => SwirlBullet(p, d, SE*Radius, true));
