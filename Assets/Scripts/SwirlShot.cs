@@ -33,10 +33,5 @@ namespace Dotge
             center += direction * speed * Time.fixedDeltaTime;
             transform.position = ov + center;
         }
-
-        void OnBecameInvisible()
-        {
-            Destroy(this.gameObject);
-        }
     }
 }
