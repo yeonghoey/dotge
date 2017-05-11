@@ -64,19 +64,19 @@ namespace Dotge
         {
             // for (int i = 0; i < 4; i++)
             // {
-            //     Patterns.Circle(OO, Radius, i * 6.0f, 36, BasicBullet, pos => OO - pos);
+            //     Patterns.Circle(OO, Radius, i * 6.0f, 36, pos => OO - pos, BasicBullet);
             //     yield return new WaitForSeconds(1);
-            //     Patterns.Circle(OO, Radius, i * 6.0f, 18, BasicBullet, pos => OO - pos);
+            //     Patterns.Circle(OO, Radius, i * 6.0f, 18, pos => OO - pos, BasicBullet);
             //     yield return new WaitForSeconds(1);
             // }
 
             // yield return new WaitForSeconds(5);
 
-            // Patterns.Circle(WW*Radius, Side/3, 0, 30, BasicBullet, _ => EE);
-            // Patterns.Circle(EE*Radius, Side/3, 0, 30, BasicBullet, _ => WW);
+            // Patterns.Circle(WW*Radius, Side/3, 0, 30, _ => EE, BasicBullet);
+            // Patterns.Circle(EE*Radius, Side/3, 0, 30, _ => WW, BasicBullet);
             // yield return new WaitForSeconds(1);
-            // Patterns.Circle(NN*Radius, Side/3, 0, 30, BasicBullet, _ => SS);
-            // Patterns.Circle(SS*Radius, Side/3, 0, 30, BasicBullet, _ => NN);
+            // Patterns.Circle(NN*Radius, Side/3, 0, 30, _ => SS, BasicBullet);
+            // Patterns.Circle(SS*Radius, Side/3, 0, 30, _ => NN, BasicBullet);
             // yield return new WaitForSeconds(2);
             // Patterns.Circle(OO, Radius, 0, 10, BasicBullet, pos => OO - pos);
             yield return null;
@@ -94,27 +94,32 @@ namespace Dotge
 
         IEnumerator PhaseX(int n)
         {
-            Patterns.Line(NW*Radius, NE*Radius, 1.0f, 5, BasicBullet, _ => SS);
-            Patterns.Rect(NN*Radius, 10.0f, 10.0f, 4, BasicBullet, _ => SS);
-            Patterns.Diamond(SS*Radius, 10.0f, 10.0f, 4, BasicBullet, _ => NN);
-            Patterns.Circle(NW*Radius, 5, 0, 60, (p, d) => SwirlBullet(p, d, NW*Radius, true), _ => SE);
-            Patterns.Circle(SE*Radius, 5, 0, 60, (p, d) => SwirlBullet(p, d, SE*Radius, true), _ => NW);
-            Patterns.Circle(NE*Radius, 5, 0, 60, (p, d) => SwirlBullet(p, d, NE*Radius, true), _ => SW);
-            Patterns.Circle(SW*Radius, 5, 0, 60, (p, d) => SwirlBullet(p, d, SW*Radius, true), _ => NE);
+            // Patterns.Line(NW*Radius, NE*Radius, 3.0f, 5, _ => SS,
+            //               (p, d) => Patterns.Rect(p, 3.0f, 3.0f, 4, _ => d, BasicBullet));
+
+            Patterns.Line(NW*Radius, NE*Radius, 3.0f, 3, _ => SS,
+                          (p, d) => Patterns.Circle(p, 5, 0, 60, _ => d,
+                                                    (pp, dd) => SwirlBullet(pp, dd, p, true)));
+            // Patterns.Diamond(SS*Radius, 10.0f, 10.0f, 4, _ => NN, BasicBullet);
+
+            // Patterns.Circle(NW*Radius, 5, 0, 60, _ => SE, (p, d) => SwirlBullet(p, d, NW*Radius, true));
+            // Patterns.Circle(SE*Radius, 5, 0, 60, _ => NW, (p, d) => SwirlBullet(p, d, SE*Radius, true));
+            // Patterns.Circle(NE*Radius, 5, 0, 60, _ => SW, (p, d) => SwirlBullet(p, d, NE*Radius, true));
+            // Patterns.Circle(SW*Radius, 5, 0, 60, _ => NE, (p, d) => SwirlBullet(p, d, SW*Radius, true));
+            // yield return new WaitForSeconds(1);
+            // Patterns.Circle(OO, Radius, 0, 36, pos => OO - pos, BasicBullet);
+            // yield return new WaitForSeconds(1);
+            // Patterns.Circle(OO, Radius, 0, 72, pos => OO - pos, FastBullet);
+            // yield return new WaitForSeconds(1);
+            // Patterns.Circle(OO, Radius, 0, 36, pos => OO - pos, AccelBullet);
+            // yield return new WaitForSeconds(1);
+            // Patterns.Circle(OO, Radius, 36, 72, pos => OO - pos, WhizBullet);
+            // yield return new WaitForSeconds(1);
+            // Patterns.Circle(OO, Radius, 0, 72, pos => OO - pos, HomingBullet);
             yield return new WaitForSeconds(1);
-            Patterns.Circle(OO, Radius, 0, 36, BasicBullet, pos => OO - pos);
-            yield return new WaitForSeconds(1);
-            Patterns.Circle(OO, Radius, 0, 72, FastBullet, pos => OO - pos);
-            yield return new WaitForSeconds(1);
-            Patterns.Circle(OO, Radius, 0, 36, AccelBullet, pos => OO - pos);
-            yield return new WaitForSeconds(1);
-            Patterns.Circle(OO, Radius, 36, 72, WhizBullet, pos => OO - pos);
-            yield return new WaitForSeconds(1);
-            Patterns.Circle(OO, Radius, 0, 72, HomingBullet, pos => OO - pos);
-            yield return new WaitForSeconds(1);
-            // Patterns.RandomOnCircle(OO, Radius, 10, AccelBullet, pos => OO - pos);
-            // Patterns.RandomOnCircle(OO, Radius, 2, WhizBullet, pos => OO - pos);
-            // Patterns.RandomOnCircle(OO, Radius, 1, HomingBullet, pos => OO - pos);
+            // Patterns.RandomOnCircle(OO, Radius, 10, pos => OO - pos, AccelBullet);
+            // Patterns.RandomOnCircle(OO, Radius, 2, pos => OO - pos, WhizBullet);
+            // Patterns.RandomOnCircle(OO, Radius, 1, pos => OO - pos, HomingBullet);
         }
 
         // ConstShots
