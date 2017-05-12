@@ -99,9 +99,13 @@ namespace Dotge
             // P.Line(NW*Radius, NE*Radius, 3.0f, 5, _ => SS,
             //               (p, d) => P.Rect(p, 3.0f, 3.0f, 4, _ => d, BasicBullet));
 
-            P.Line(NW*Radius + NN*7, NE*Radius + NN*7, 3.0f, 3, _ => SS,
-                   (p, d) => P.Circle(p, 6, 0, 60, _ => d,
-                                      (pp, dd) => SwirlBullet(pp, dd, p, true)));
+            // P.Line(NW*Radius + NN*7, NE*Radius + NN*7, 3.0f, 3, _ => SS,
+            //        (p, d) => P.Circle(p, 6, 0, 60, _ => d,
+            //                           (pp, dd) => SwirlBullet(pp, dd, p, true)));
+
+            P.Circle(OO, 5, 0, 60, p => OO - p, BasicBullet);
+
+
             // P.Diamond(SS*Radius, 10.0f, 10.0f,- Replace: {{c5::L drag}} 4, _ => NN, BasicBullet);
 
             // P.Circle(NW*Radius, 5, 0, 60, _ => SE, (p, d) => SwirlBullet(p, d, NW*Radius, true));
