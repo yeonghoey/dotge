@@ -71,6 +71,13 @@ namespace Dotge
 
             yield return null;
 
+            while (!player.dying)
+            {
+                yield return null;
+            }
+
+            scorer.gameObject.SetActive(false);
+
             while (player.gameObject.activeInHierarchy)
             {
                 yield return null;

@@ -18,7 +18,7 @@ namespace Dotge
           set { PlayerPrefs.SetInt("editor." + MethodBase.GetCurrentMethod().Name.Substring(4), value ? 1 : 0); }
       }
 
-      public static bool SkipDeadAnim
+      public static bool SkipDeadEffect
       {
           get { return PlayerPrefs.GetInt("editor." + MethodBase.GetCurrentMethod().Name.Substring(4)) != 0; }
           set { PlayerPrefs.SetInt("editor." + MethodBase.GetCurrentMethod().Name.Substring(4), value ? 1 : 0); }

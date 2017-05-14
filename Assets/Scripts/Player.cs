@@ -4,17 +4,16 @@ namespace Dotge
 {
     public class Player : MonoBehaviour
     {
+        [SerializeField]
+        private float speed;
+        [SerializeField]
+        private SpriteRenderer renderer_;
+        [SerializeField]
+        private GameObject deadEffect;
 
-        public float speed;
+        public bool dying = false;
 
-        private Animator animator;
-        private Vector2 direction;
-
-        void Start()
-        {
-            animator = GetComponent<Animator>();
-            direction = Vector2.zero;
-        }
+        private Vector2 direction = Vector2.zero;
 
         void Update()
         {
@@ -34,13 +33,26 @@ namespace Dotge
             if (DevSettings.Invincible) return;
 #endif
 
+            if (dying)
+            {
+                return;
+            }
+
             if (other.CompareTag("Shot"))
             {
+                SetDying();
 #if UNITY_EDITOR
-                if (DevSettings.SkipDeadAnim) gameObject.SetActive(false);
+                if (DevSettings.SkipDeadEffect) gameObject.SetActive(false);
 #endif
-                animator.SetTrigger("Die");
             }
+        }
+
+        void SetDying()
+        {
+            dying = true;
+            this.enabled = false;
+            renderer_.enabled = false;
+            deadEffect.SetActive(true);
         }
     }
 }
