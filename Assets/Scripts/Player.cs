@@ -2,7 +2,8 @@
 
 namespace Dotge
 {
-    public class Player : MonoBehaviour {
+    public class Player : MonoBehaviour
+    {
 
         public float speed;
 
