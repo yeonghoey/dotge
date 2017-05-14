@@ -14,7 +14,7 @@ namespace Dotge
         public GameObject titleCover;
         public Text scoreText;
 
-        private float highScore;
+        private float highscore;
         private bool pressed;
 
         private Player player;
@@ -23,7 +23,7 @@ namespace Dotge
 
         void Start()
         {
-            highScore = 0.0f;
+            highscore = 0.0f;
             StartCoroutine(GameLoop());
         }
 
@@ -45,7 +45,7 @@ namespace Dotge
         IEnumerator Wait()
         {
             titleCover.SetActive(true);
-            scoreText.text = Scorer.Format(highScore);
+            scoreText.text = Scorer.Format(highscore);
 
             pressed = false;
 
@@ -90,9 +90,9 @@ namespace Dotge
             Destroy(scorer.gameObject);
 
             float lastScore = scorer.Score;
-            if (lastScore > highScore)
+            if (lastScore > highscore)
             {
-                highScore = lastScore;
+                highscore = lastScore;
             }
 
 #if UNITY_EDITOR
