@@ -3,3 +3,5 @@ CLOSED: [2017-05-14 Sun 13:21]
 
 * TODO Press any key -> Touch to start for Mobile
 
+* TODO SkipPressAnyButton to PressAnyKey
+

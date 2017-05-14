@@ -1,4 +1,5 @@
-﻿using UnityEditor;
+﻿using System.Reflection;
+using UnityEditor;
 
 namespace Dotge
 {
@@ -12,11 +13,48 @@ namespace Dotge
 
         void OnGUI()
         {
-            DevSettings.Invincible = EditorGUILayout.Toggle("Invincible", DevSettings.Invincible);
-            DevSettings.SkipPressAnyButton = EditorGUILayout.Toggle("SkipPressAnyButton", DevSettings.SkipPressAnyButton);
-            DevSettings.SkipDeadAnim = EditorGUILayout.Toggle("SkipDeadAnim", DevSettings.SkipDeadAnim);
-            DevSettings.SkipAfterDead = EditorGUILayout.Toggle("SkipAfterDead", DevSettings.SkipAfterDead);
-            DevSettings.SkipHighscore = EditorGUILayout.Toggle("SkipHighscore", DevSettings.SkipHighscore);
+            var ps = typeof(DevSettings).GetProperties();
+            foreach (var p in ps)
+            {
+                UIForProperty(p);
+            }
+        }
+
+        void UIForProperty(PropertyInfo p)
+        {
+            if (p.PropertyType == typeof(bool))
+            {
+                ToggleForProperty(p);
+            }
+            else if (p.PropertyType == typeof(int))
+            {
+                IntFieldForProperty(p);
+            }
+            else if (p.PropertyType == typeof(string))
+            {
+                TextFieldForProperty(p);
+            }
+        }
+
+        void ToggleForProperty(PropertyInfo p)
+        {
+            bool value = (bool)p.GetValue(null, null);
+            bool updated = EditorGUILayout.Toggle(p.Name, value);
+            p.SetValue(null, updated, null);
+        }
+
+        void IntFieldForProperty(PropertyInfo p)
+        {
+            int value = (int)p.GetValue(null, null);
+            int updated = EditorGUILayout.IntField(p.Name, value);
+            p.SetValue(null, updated, null);
+        }
+
+        void TextFieldForProperty(PropertyInfo p)
+        {
+            string value = (string)p.GetValue(null, null);
+            string updated = EditorGUILayout.TextField(p.Name, value);
+            p.SetValue(null, updated, null);
         }
     }
 }
