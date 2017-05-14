@@ -1,7 +1,8 @@
 * DONE highScore -> highscore
 CLOSED: [2017-05-14 Sun 13:21]
 
-* TODO Press any key -> Touch to start for Mobile
+* DONE SkipPressAnyButton to PressAnyKey
+CLOSED: [2017-05-14 Sun 14:18]
 
-* TODO SkipPressAnyButton to PressAnyKey
+* TODO Press any key -> Touch to start for Mobile
 

@@ -50,7 +50,7 @@ namespace Dotge
             pressed = false;
 
 #if UNITY_EDITOR
-            if (DevSettings.SkipPressAnyButton) yield break;
+            if (DevSettings.SkipPressAnyKey) yield break;
 #endif
 
             while (!pressed)
