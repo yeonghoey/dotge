@@ -52,80 +52,37 @@ namespace Dotge
 
         IEnumerator GameLoop()
         {
-            // yield return StartCoroutine(Phase1());
-            // yield return StartCoroutine(Phase2());
-            // yield return StartCoroutine(Phase3());
-
             for (int i = 0; ; i++)
             {
                 yield return StartCoroutine(PhaseX(i));
             }
         }
 
-        IEnumerator Phase1()
-        {
-            // for (int i = 0; i < 4; i++)
-            // {
-            //     P.Circle(OO, Radius, i * 6.0f, 36, pos => OO - pos, BasicBullet);
-            //     yield return new WaitForSeconds(1);
-            //     P.Circle(OO, Radius, i * 6.0f, 18, pos => OO - pos, BasicBullet);
-            //     yield return new WaitForSeconds(1);
-            // }
-
-            // yield return new WaitForSeconds(5);
-
-            // P.Circle(WW*Radius, Side/3, 0, 30, _ => EE, BasicBullet);
-            // P.Circle(EE*Radius, Side/3, 0, 30, _ => WW, BasicBullet);
-            // yield return new WaitForSeconds(1);
-            // P.Circle(NN*Radius, Side/3, 0, 30, _ => SS, BasicBullet);
-            // P.Circle(SS*Radius, Side/3, 0, 30, _ => NN, BasicBullet);
-            // yield return new WaitForSeconds(2);
-            // P.Circle(OO, Radius, 0, 10, BasicBullet, pos => OO - pos);
-            yield return null;
-        }
-
-        IEnumerator Phase2()
-        {
-            yield return null;
-        }
-
-        IEnumerator Phase3()
-        {
-            yield return null;
-        }
-
         IEnumerator PhaseX(int n)
         {
-            // P.Line(NW*Radius, NE*Radius, 3.0f, 5, _ => SS,
-            //               (p, d) => P.Rect(p, 3.0f, 3.0f, 4, _ => d, BasicBullet));
-
             P.Line(NW*Radius + NN*7, NE*Radius + NN*7, 3.0f, 3, _ => SS,
                    (p, d) => P.Circle(p, 6, 0, 60, _ => d,
                                       (pp, dd) => SwirlBullet(pp, dd, p, true)));
-
-            // P.Circle(OO, 5, 0, 60, p => OO - p, BasicBullet);
-
-
-            // P.Diamond(SS*Radius, 10.0f, 10.0f,- Replace: {{c5::L drag}} 4, _ => NN, BasicBullet);
-
-            // P.Circle(NW*Radius, 5, 0, 60, _ => SE, (p, d) => SwirlBullet(p, d, NW*Radius, true));
-            // P.Circle(SE*Radius, 5, 0, 60, _ => NW, (p, d) => SwirlBullet(p, d, SE*Radius, true));
-            // P.Circle(NE*Radius, 5, 0, 60, _ => SW, (p, d) => SwirlBullet(p, d, NE*Radius, true));
-            // P.Circle(SW*Radius, 5, 0, 60, _ => NE, (p, d) => SwirlBullet(p, d, SW*Radius, true));
-            // yield return new WaitForSeconds(1);
-            // P.Circle(OO, Radius, 0, 36, pos => OO - pos, BasicBullet);
-            // yield return new WaitForSeconds(1);
-            // P.Circle(OO, Radius, 0, 72, pos => OO - pos, FastBullet);
-            // yield return new WaitForSeconds(1);
-            // P.Circle(OO, Radius, 0, 36, pos => OO - pos, AccelBullet);
-            // yield return new WaitForSeconds(1);
-            // P.Circle(OO, Radius, 36, 72, pos => OO - pos, WhizBullet);
-            // yield return new WaitForSeconds(1);
-            // P.Circle(OO, Radius, 0, 72, pos => OO - pos, HomingBullet);
+            P.Circle(OO, 10, 0, 60, p => OO - p, BasicBullet);
+            P.Diamond(SS*Radius, 10.0f, 10.0f, 4, _ => NN, BasicBullet);
+            P.Circle(NW*Radius, 5, 0, 60, _ => SE, (p, d) => SwirlBullet(p, d, NW*Radius, true));
+            P.Circle(SE*Radius, 5, 0, 60, _ => NW, (p, d) => SwirlBullet(p, d, SE*Radius, true));
+            P.Circle(NE*Radius, 5, 0, 60, _ => SW, (p, d) => SwirlBullet(p, d, NE*Radius, true));
+            P.Circle(SW*Radius, 5, 0, 60, _ => NE, (p, d) => SwirlBullet(p, d, SW*Radius, true));
             yield return new WaitForSeconds(1);
-            // P.RandomOnCircle(OO, Radius, 10, pos => OO - pos, AccelBullet);
-            // P.RandomOnCircle(OO, Radius, 2, pos => OO - pos, WhizBullet);
-            // P.RandomOnCircle(OO, Radius, 1, pos => OO - pos, HomingBullet);
+            P.Circle(OO, Radius, 0, 36, pos => OO - pos, BasicBullet);
+            yield return new WaitForSeconds(1);
+            P.Circle(OO, Radius, 0, 72, pos => OO - pos, FastBullet);
+            yield return new WaitForSeconds(1);
+            P.Circle(OO, Radius, 0, 36, pos => OO - pos, AccelBullet);
+            yield return new WaitForSeconds(1);
+            P.Circle(OO, Radius, 36, 72, pos => OO - pos, WhizBullet);
+            yield return new WaitForSeconds(1);
+            P.Circle(OO, Radius, 0, 72, pos => OO - pos, HomingBullet);
+            yield return new WaitForSeconds(1);
+            P.RandomOnCircle(OO, Radius, 10, pos => OO - pos, AccelBullet);
+            P.RandomOnCircle(OO, Radius, 2, pos => OO - pos, WhizBullet);
+            P.RandomOnCircle(OO, Radius, 1, pos => OO - pos, HomingBullet);
         }
 
         // ConstShots
