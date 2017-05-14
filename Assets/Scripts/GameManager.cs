@@ -87,7 +87,7 @@ namespace Dotge
             if (DevSettings.SkipAfterDead) yield break;
 #endif
 
-            yield return new WaitForSeconds(2.0f);
+            yield return new WaitForSeconds(1.0f);
         }
 
         IEnumerator End()
@@ -105,7 +105,7 @@ namespace Dotge
 #if UNITY_EDITOR
             if (DevSettings.SkipHighscore) yield break;
 #endif
-            yield return new WaitForSeconds(2.0f);
+            yield return new WaitForSeconds(1.5f);
         }
     }
 }
