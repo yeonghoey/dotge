@@ -50,7 +50,7 @@ namespace Dotge
             pressed = false;
 
 #if UNITY_EDITOR
-            if (DevSettings.QuickMode) yield break;
+            if (DevSettings.SkipPressAnyButton) yield break;
 #endif
 
             while (!pressed)
@@ -77,7 +77,7 @@ namespace Dotge
             }
 
 #if UNITY_EDITOR
-            if (DevSettings.QuickMode) yield break;
+            if (DevSettings.SkipAfterDead) yield break;
 #endif
 
             yield return new WaitForSeconds(2.0f);
@@ -96,7 +96,7 @@ namespace Dotge
             }
 
 #if UNITY_EDITOR
-            if (DevSettings.QuickMode) yield break;
+            if (DevSettings.SkipHighscore) yield break;
 #endif
             yield return new WaitForSeconds(2.0f);
         }

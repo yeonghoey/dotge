@@ -37,7 +37,7 @@ namespace Dotge
             if (other.CompareTag("Shot"))
             {
 #if UNITY_EDITOR
-                if (DevSettings.QuickMode) gameObject.SetActive(false);
+                if (DevSettings.SkipDeadAnim) gameObject.SetActive(false);
 #endif
                 animator.SetTrigger("Die");
             }
