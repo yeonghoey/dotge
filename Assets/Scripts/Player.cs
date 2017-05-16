@@ -7,8 +7,6 @@ namespace Dotge
         [SerializeField]
         private float speed;
         [SerializeField]
-        private SpriteRenderer renderer_;
-        [SerializeField]
         private GameObject deadEffect;
 
         public bool dying = false;
@@ -41,9 +39,6 @@ namespace Dotge
             if (other.CompareTag("Shot"))
             {
                 SetDying();
-#if UNITY_EDITOR
-                if (DevSettings.SkipDeadEffect) gameObject.SetActive(false);
-#endif
             }
         }
 
@@ -51,7 +46,9 @@ namespace Dotge
         {
             dying = true;
             this.enabled = false;
-            renderer_.enabled = false;
+#if UNITY_EDITOR
+            if (DevSettings.SkipDeadEffect) return;
+#endif
             deadEffect.SetActive(true);
         }
     }

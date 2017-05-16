@@ -4,23 +4,31 @@ namespace Dotge
 {
     public class DeadEffect : MonoBehaviour
     {
-        const float Duration = 1.0f;
+        const float Duration = 0.3f;
 
         [SerializeField]
-        private GameObject player;
+        private SpriteRenderer player;
 
-        private float activatedAt;
+        [SerializeField]
+        private ParticleSystem particle;
+
+        private float startedAt;
 
         void Start()
         {
-            activatedAt = Time.time;
+            startedAt = Time.realtimeSinceStartup;
+            Time.timeScale = 0.0f;
         }
 
         void Update()
         {
-            if (Time.time - activatedAt > Duration)
+            float delta = Time.realtimeSinceStartup - startedAt;
+            if (delta >= Duration)
             {
-                player.SetActive(false);
+                Time.timeScale = 1.0f;
+                player.enabled = false;
+                particle.Play();
+                this.enabled = false;
             }
         }
     }

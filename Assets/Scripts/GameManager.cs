@@ -78,16 +78,10 @@ namespace Dotge
 
             scorer.gameObject.SetActive(false);
 
-            while (player.gameObject.activeInHierarchy)
-            {
-                yield return null;
-            }
-
 #if UNITY_EDITOR
-            if (DevSettings.SkipAfterDead) yield break;
+            if (DevSettings.SkipDeadEffect) yield break;
 #endif
-
-            yield return new WaitForSeconds(1.0f);
+            yield return new WaitForSeconds(2.0f);
         }
 
         IEnumerator End()
