@@ -2,7 +2,7 @@ using UnityEngine;
 
 namespace Dotge
 {
-    public class DeadEffect : MonoBehaviour
+    public class DyingEffect : MonoBehaviour
     {
         const float Duration = 0.3f;
 
