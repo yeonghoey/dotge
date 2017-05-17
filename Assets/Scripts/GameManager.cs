@@ -79,7 +79,7 @@ namespace Dotge
             scorer.gameObject.SetActive(false);
 
 #if UNITY_EDITOR
-            if (DevSettings.SkipDeadEffect) yield break;
+            if (DevSettings.SkipDyingEffect) yield break;
 #endif
             yield return new WaitForSeconds(2.0f);
         }

@@ -7,8 +7,11 @@ namespace Dotge
         [SerializeField]
         private float speed;
         [SerializeField]
-        private GameObject deadEffect;
+        private SpriteRenderer sprite;
+        [SerializeField]
+        private GameObject dyingEffect;
 
+        [System.NonSerialized]
         public bool dying = false;
 
         private Vector2 direction = Vector2.zero;
@@ -38,18 +41,11 @@ namespace Dotge
 
             if (other.CompareTag("Shot"))
             {
-                SetDying();
+                dying = true;
+                this.enabled = false;
+                sprite.enabled = false;
+                dyingEffect.SetActive(true);
             }
-        }
-
-        void SetDying()
-        {
-            dying = true;
-            this.enabled = false;
-#if UNITY_EDITOR
-            if (DevSettings.SkipDeadEffect) return;
-#endif
-            deadEffect.SetActive(true);
         }
     }
 }
