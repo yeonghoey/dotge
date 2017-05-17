@@ -9,4 +9,5 @@ CLOSED: [2017-05-15 Mon 08:17]
 - https://flatuicolors.com/
 
 * TODO Press any key -> Touch to start for Mobile
-
+* TODO Glow color scheme
+* TODO BGM
