@@ -4,12 +4,10 @@ namespace Dotge
 {
     public class Player : MonoBehaviour
     {
-        [SerializeField]
-        private float speed;
-        [SerializeField]
-        private SpriteRenderer sprite;
-        [SerializeField]
-        private GameObject dyingEffect;
+        public float speed;
+        public SpriteRenderer sprite;
+        public AudioSource dyingSound;
+        public GameObject dyingEffect;
 
         [System.NonSerialized]
         public bool dying = false;
@@ -44,6 +42,7 @@ namespace Dotge
                 dying = true;
                 this.enabled = false;
                 sprite.enabled = false;
+                dyingSound.Play();
                 dyingEffect.SetActive(true);
             }
         }
