@@ -13,6 +13,7 @@ namespace Dotge
 
         public GameObject titleCover;
         public Text scoreText;
+        public Jukebox jukebox;
 
         private float highscore;
         private bool pressed;
@@ -62,6 +63,7 @@ namespace Dotge
         IEnumerator Play()
         {
             titleCover.SetActive(false);
+            jukebox.PlayProgressive();
 
             player = Instantiate(playerPrefab);
             master = Instantiate(masterPrefab);
@@ -77,6 +79,7 @@ namespace Dotge
             }
 
             scorer.gameObject.SetActive(false);
+            jukebox.StopAll();
 
 #if UNITY_EDITOR
             if (DevSettings.SkipDyingEffect) yield break;
