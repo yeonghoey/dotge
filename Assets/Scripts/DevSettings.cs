@@ -29,6 +29,12 @@ namespace Dotge
           get { return PlayerPrefs.GetInt("editor." + MethodBase.GetCurrentMethod().Name.Substring(4)) != 0; }
           set { PlayerPrefs.SetInt("editor." + MethodBase.GetCurrentMethod().Name.Substring(4), value ? 1 : 0); }
       }
+
+      public static int TestingPhase
+      {
+          get { return PlayerPrefs.GetInt("editor." + MethodBase.GetCurrentMethod().Name.Substring(4)); }
+          set { PlayerPrefs.SetInt("editor." + MethodBase.GetCurrentMethod().Name.Substring(4), value); }
+      }
   }
 }
 #endif

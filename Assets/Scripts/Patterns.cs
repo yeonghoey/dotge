@@ -53,16 +53,13 @@ namespace Dotge
             Line(l, t, 0, countBySide, fromTo, spawnShot);
         }
 
-        public static void Line(Vector2 a, Vector2 b, float padding, int count, FromTo fromTo, SpawnShot spawnShot)
+        public static void Line(Vector2 a, Vector2 b, float offset, int count, FromTo fromTo, SpawnShot spawnShot)
         {
-            Vector2 d = (b - a).normalized;
-            Vector2 aa = a + (d * padding);
-            Vector2 bb = b - (d * padding);
-
             Debug.Assert(count > 1);
-            Vector2 unit = d * ((bb - aa).magnitude / (count - 1));
+            Vector2 d = (b - a).normalized;
+            Vector2 unit = d * ((b - a).magnitude / (count - 1));
 
-            var pos = aa;
+            var pos = a + d*offset;
             for (int i = 0; i < count; i++)
             {
                 var dir = fromTo(pos);
