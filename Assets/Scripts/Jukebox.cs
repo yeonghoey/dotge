@@ -9,6 +9,7 @@ namespace Dotge
         public void PlayProgressive()
         {
             StopAll();
+            // bgmProgressive.time = 6.0f;
             bgmProgressive.Play();
         }
 

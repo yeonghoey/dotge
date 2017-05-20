@@ -52,10 +52,36 @@ namespace Dotge
 
         IEnumerator GameLoop()
         {
-            for (int i = 0; ; i++)
-            {
-                yield return StartCoroutine(PhaseX(i));
-            }
+            yield return StartCoroutine(Phase1());
+        }
+
+        IEnumerator Phase1()
+        {
+            P.Circle(OO, Radius, 0, 60, p => OO - p, BasicBullet);
+            yield return new WaitForSeconds(1.5f);
+            P.Circle(OO, Radius, 30, 60, p => OO - p, BasicBullet);
+            yield return new WaitForSeconds(1.5f);
+            P.Circle(OO, Radius, 0, 45, p => OO - p, BasicBullet);
+            yield return new WaitForSeconds(1.5f);
+            P.Diamond(OO, Radius*2, Radius*2, 3, p => OO - p, BasicBullet);
+
+            yield return new WaitForSeconds(1.5f);
+            P.Circle(OO, Radius,  0, 60, p => OO - p, BasicBullet);
+
+            P.Circle(OO, Radius, 0, 60, p => OO - p, FastBullet);
+            yield return new WaitForSeconds(0.1f);
+            P.Circle(OO, Radius, 20, 60, p => OO - p, FastBullet);
+            yield return new WaitForSeconds(0.1f);
+            P.Circle(OO, Radius, 40, 60, p => OO - p, FastBullet);
+            yield return new WaitForSeconds(1.8f);
+
+            P.Circle(OO, Radius, 20, 60, p => OO - p, BasicBullet);
+            yield return new WaitForSeconds(1.8f);
+            P.Circle(OO, Radius, 40, 60, p => OO - p, BasicBullet);
+            yield return new WaitForSeconds(1.8f);
+            P.Circle(OO, Radius,  0, 60, p => OO - p, BasicBullet);
+
+            // P.Circle(OO, Radius, 40, 60, p => OO - p, BasicBullet);
         }
 
         IEnumerator PhaseX(int n)
