@@ -63,11 +63,10 @@ namespace Dotge
         IEnumerator Play()
         {
             titleCover.SetActive(false);
-            jukebox.PlayProgressive();
-
             player = Instantiate(playerPrefab);
             master = Instantiate(masterPrefab);
             master.player = player.transform;
+            master.jukebox = jukebox;
             scorer = Instantiate(scorerPrefab);
             scorer.scoreText = scoreText;
 

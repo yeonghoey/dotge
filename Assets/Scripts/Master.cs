@@ -18,6 +18,9 @@ namespace Dotge
         public HomingShot homingBulletPrefab;
         public SwirlShot swrilBulletPrefab;
 
+
+        [System.NonSerialized]
+        public Jukebox jukebox;
         [System.NonSerialized]
         public Transform player;
 
@@ -62,34 +65,47 @@ namespace Dotge
         {
             while (true)
             {
-                // var meth = typeof(Master).GetMethod("Phase01");
-
-                // yield return StartCoroutine(Phase01(progressiveTempo));
-                // yield return StartCoroutine(Phase02(progressiveTempo));
-                // yield return StartCoroutine(Phase03(progressiveTempo));
+                yield return NextPhase();
             }
-            yield return null;
         }
 
         IEnumerator NextPhase()
         {
+            int n = 0;
+#if UNITY_EDITOR
+            n = DevSettings.PhaseAt;
+#endif
+            jukebox.PlayMain(n);
             while (true)
             {
-                for (int i = 0; i < NumPhase; i++)
+#if UNITY_EDITOR
+                if (DevSettings.RepeatPhase)
                 {
-                    var meth = typeof(Master).GetMethod("Phase01", BindingFlags.Instance | BindingFlags.NonPublic);
-                    var e = (IEnumerator)meth.Invoke(this, new object[] {Jukebox.Tempo});
-                    yield return StartCoroutine(e);
+                    n = DevSettings.PhaseAt;
+                    jukebox.PlayMain(n);
                 }
+#endif
+                yield return StartCoroutine(Phase(n));
+                n++;
             }
+        }
+
+        IEnumerator Phase(int n)
+        {
+            string name = string.Format("Phase{0:00}", n);
+            BindingFlags bf = BindingFlags.Instance | BindingFlags.NonPublic;
+            MethodInfo m = typeof(Master).GetMethod(name, bf);
+            if (m == null)
+            {
+                m = typeof(Master).GetMethod("PhaseXX", bf);
+            }
+            return (IEnumerator)m.Invoke(this, new object[] {Jukebox.Tempo});
         }
 
         IEnumerator Phase00(float tempo)
         {
             WaitForSeconds T = new WaitForSeconds(tempo);
-            WaitForSeconds TT = new WaitForSeconds(tempo * 0.5f);
             WaitForSeconds TTT = new WaitForSeconds(tempo * 0.33333f);
-            WaitForSeconds TTTT = new WaitForSeconds(tempo * 0.25f);
 
             P.Circle(OO, Radius, 30, 60, p => OO - p, BasicBullet);
             yield return T;
@@ -124,9 +140,7 @@ namespace Dotge
         IEnumerator Phase01(float tempo)
         {
             WaitForSeconds T = new WaitForSeconds(tempo);
-            WaitForSeconds TT = new WaitForSeconds(tempo * 0.5f);
             WaitForSeconds TTT = new WaitForSeconds(tempo * 0.33333f);
-            WaitForSeconds TTTT = new WaitForSeconds(tempo * 0.25f);
 
             P.Circle(OO, Radius, 0, 45, p => OO - p, BasicBullet);
             yield return T;
@@ -161,9 +175,7 @@ namespace Dotge
         IEnumerator Phase02(float tempo)
         {
             WaitForSeconds T = new WaitForSeconds(tempo);
-            WaitForSeconds TT = new WaitForSeconds(tempo * 0.5f);
             WaitForSeconds TTT = new WaitForSeconds(tempo * 0.33333f);
-            WaitForSeconds TTTT = new WaitForSeconds(tempo * 0.25f);
 
             P.Circle(OO, Radius, 0, 60, p => OO - p, BasicBullet);
             P.Circle(OO, Radius, 30, 60, p => OO - p, AccelBullet);
@@ -197,7 +209,7 @@ namespace Dotge
             yield return T;
         }
 
-        IEnumerator PhaseX(int n)
+        IEnumerator PhaseXX(float tempo)
         {
             P.Line(NW*Radius + NN*7, NE*Radius + NN*7, 3.0f, 3, _ => SS,
                    (p, d) => P.Circle(p, 6, 0, 60, _ => d,
