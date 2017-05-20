@@ -36,6 +36,11 @@ namespace Dotge
         readonly Vector2 WW = Vector2.left;
         readonly Vector2 NW = (Vector2.up + Vector2.left).normalized;
 
+        Vector2 TL { get { return new Vector2(-Half, -Half); } }
+        Vector2 TR { get { return new Vector2(+Half, -Half); } }
+        Vector2 BL { get { return new Vector2(-Half, +Half); } }
+        Vector2 BR { get { return new Vector2(+Half, +Half); } }
+
         void Start()
         {
             Half = mainCameraPrefab.orthographicSize;
@@ -52,36 +57,70 @@ namespace Dotge
 
         IEnumerator GameLoop()
         {
-            yield return StartCoroutine(Phase1());
+            const float progressiveTempo = 60.0f / 144.0f;
+            yield return StartCoroutine(Phase1(progressiveTempo));
         }
 
-        IEnumerator Phase1()
+        IEnumerator Phase1(float tempo)
         {
+            WaitForSeconds T = new WaitForSeconds(tempo);
+            WaitForSeconds TT = new WaitForSeconds(tempo * 0.5f);
+            WaitForSeconds TTT = new WaitForSeconds(tempo * 0.33333f);
+            WaitForSeconds TTTT = new WaitForSeconds(tempo * 0.25f);
+
             P.Circle(OO, Radius, 0, 60, p => OO - p, BasicBullet);
-            yield return new WaitForSeconds(1.5f);
+            yield return T;
+            yield return T;
+            yield return T;
+            yield return T;
+
             P.Circle(OO, Radius, 30, 60, p => OO - p, BasicBullet);
-            yield return new WaitForSeconds(1.5f);
+            yield return T;
+            yield return T;
+            yield return T;
+            yield return T;
+
             P.Circle(OO, Radius, 0, 45, p => OO - p, BasicBullet);
-            yield return new WaitForSeconds(1.5f);
-            P.Diamond(OO, Radius*2, Radius*2, 3, p => OO - p, BasicBullet);
+            yield return T;
+            yield return T;
+            yield return T;
+            yield return T;
 
-            yield return new WaitForSeconds(1.5f);
-            P.Circle(OO, Radius,  0, 60, p => OO - p, BasicBullet);
-
+            P.Diamond(OO, Radius*2*Mathf.Sqrt(2), Radius*2*Mathf.Sqrt(2), 3, p => OO - p, BasicBullet);
+            yield return T;
+            yield return T;
             P.Circle(OO, Radius, 0, 60, p => OO - p, FastBullet);
-            yield return new WaitForSeconds(0.1f);
+            yield return TTTT;
             P.Circle(OO, Radius, 20, 60, p => OO - p, FastBullet);
-            yield return new WaitForSeconds(0.1f);
+            yield return TTTT;
             P.Circle(OO, Radius, 40, 60, p => OO - p, FastBullet);
-            yield return new WaitForSeconds(1.8f);
+            yield return TTTT;
+            yield return TTTT;
+            yield return T;
+
+            P.Circle(OO, Radius,  0, 60, p => OO - p, BasicBullet);
+            yield return T;
+            yield return T;
+            yield return T;
+            yield return T;
 
             P.Circle(OO, Radius, 20, 60, p => OO - p, BasicBullet);
-            yield return new WaitForSeconds(1.8f);
-            P.Circle(OO, Radius, 40, 60, p => OO - p, BasicBullet);
-            yield return new WaitForSeconds(1.8f);
-            P.Circle(OO, Radius,  0, 60, p => OO - p, BasicBullet);
+            yield return T;
+            yield return T;
+            yield return T;
+            yield return T;
 
-            // P.Circle(OO, Radius, 40, 60, p => OO - p, BasicBullet);
+            P.Circle(OO, Radius, 40, 60, p => OO - p, BasicBullet);
+            yield return T;
+            yield return T;
+            yield return T;
+            yield return T;
+
+            P.Circle(OO, Radius,  0, 60, p => OO - p, BasicBullet);
+            yield return T;
+            yield return T;
+            yield return T;
+            yield return T;
         }
 
         IEnumerator PhaseX(int n)
