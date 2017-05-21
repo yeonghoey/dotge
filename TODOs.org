@@ -9,5 +9,8 @@ CLOSED: [2017-05-15 Mon 08:17]
 - https://flatuicolors.com/
 
 * TODO Press any key -> Touch to start for Mobile
-* TODO Glow color scheme
-* TODO BGM
+* DONE Neon color scheme
+CLOSED: [2017-05-21 Sun 09:04]
+- http://www.colourlovers.com/palette/7315/Pop_Is_Everything
+* DONE BGM
+CLOSED: [2017-05-21 Sun 09:04]
