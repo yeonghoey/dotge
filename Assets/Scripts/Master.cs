@@ -163,11 +163,11 @@ namespace Dotge
             P.Diamond(OO, Radius*2*Sqrt2, Radius*2*Sqrt2, 3, p => OO - p, BasicBullet);
             yield return T;
             yield return T;
-            P.Circle(OO, Radius, 0, 60, p => OO - p, FastBullet);
-            yield return TTT;
             P.Circle(OO, Radius, 20, 60, p => OO - p, FastBullet);
             yield return TTT;
             P.Circle(OO, Radius, 40, 60, p => OO - p, FastBullet);
+            yield return TTT;
+            P.Circle(OO, Radius, 0, 60, p => OO - p, FastBullet);
             yield return TTT;
             yield return T;
         }
