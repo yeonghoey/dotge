@@ -128,11 +128,11 @@ namespace Dotge
             P.Circle(OO, Radius, 0, 90, p => OO - p, BasicBullet);
             yield return T;
             yield return T;
-            P.Circle(OO, Radius, 0, 60, p => OO - p, FastBullet);
+            P.Circle(OO, Radius, 0, 90, p => OO - p, FastBullet);
             yield return TTT;
-            P.Circle(OO, Radius, 20, 60, p => OO - p, FastBullet);
+            P.Circle(OO, Radius, 30, 90, p => OO - p, FastBullet);
             yield return TTT;
-            P.Circle(OO, Radius, 40, 60, p => OO - p, FastBullet);
+            P.Circle(OO, Radius, 60, 90, p => OO - p, FastBullet);
             yield return TTT;
             yield return T;
         }
