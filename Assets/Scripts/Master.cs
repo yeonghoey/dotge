@@ -163,11 +163,11 @@ namespace Dotge
             P.Diamond(OO, Radius*2*Sqrt2, Radius*2*Sqrt2, 3, p => OO - p, BasicBullet);
             yield return T;
             yield return T;
-            P.Circle(OO, Radius, 20, 60, p => OO - p, FastBullet);
+            P.Circle(OO, Radius, 25, 60, p => OO - p, FastBullet);
             yield return TTT;
-            P.Circle(OO, Radius, 40, 60, p => OO - p, FastBullet);
+            P.Circle(OO, Radius, 5, 60, p => OO - p, FastBullet);
             yield return TTT;
-            P.Circle(OO, Radius, 0, 60, p => OO - p, FastBullet);
+            P.Circle(OO, Radius, 45, 60, p => OO - p, FastBullet);
             yield return TTT;
             yield return T;
         }
@@ -178,7 +178,7 @@ namespace Dotge
             WaitForSeconds TT = new WaitForSeconds(tempo * 0.5f);
             WaitForSeconds TTT = new WaitForSeconds(tempo * 0.33333f);
 
-            P.Circle(OO, Radius, 0, 45, p => OO - p, AccelBullet);
+            P.Circle(OO, Radius, 0, 90, p => OO - p, FastBullet);
             yield return T;
             yield return T;
             P.Circle(OO, Radius,  0, 72, p => OO - p, AccelBullet);
@@ -190,30 +190,32 @@ namespace Dotge
             P.Circle(OO, Radius, 54, 72, p => OO - p, AccelBullet);
             yield return T;
 
-            P.Circle(OO, Radius, 0, 60, p => OO - p, FastBullet);
+            P.Circle(OO, Radius, 45, 90, p => OO - p, FastBullet);
             yield return T;
             yield return T;
             yield return T;
             yield return T;
 
-            P.Circle(OO, Radius, 0, 72, p => OO - p, BasicBullet);
+            P.Circle(OO, Radius, 0, 90, p => OO - p, FastBullet);
+            P.Circle(OO, Radius, 0, 180, p => OO - p, BasicBullet);
             yield return T;
-            P.Circle(OO, Radius, 0, 72, p => OO - p, BasicBullet);
+            P.Circle(OO, Radius, 60, 180, p => OO - p, BasicBullet);
             yield return T;
-            P.Circle(OO, Radius, 0, 72, p => OO - p, BasicBullet);
-            yield return T;
-            P.Circle(OO, Radius, 0, 72, p => OO - p, BasicBullet);
+            P.Circle(OO, Radius, 120, 180, p => OO - p, BasicBullet);
             yield return TT;
-            P.Circle(OO, Radius, 0, 72, p => OO - p, BasicBullet);
+            P.Circle(OO, Radius, 0, 90, p => OO - p, BasicBullet);
             yield return TT;
+            P.Circle(OO, Radius, 45, 90, p => OO - p, BasicBullet);
+            yield return T;
 
+            P.Circle(OO, Radius, 45, 90, p => OO - p, FastBullet);
             yield return T;
             yield return T;
-            P.Circle(OO, Radius, 0, 60, p => OO - p, FastBullet);
+            P.Circle(OO, Radius, 10, 60, p => OO - p, FastBullet);
             yield return TTT;
-            P.Circle(OO, Radius, 20, 60, p => OO - p, FastBullet);
+            P.Circle(OO, Radius, 30, 60, p => OO - p, FastBullet);
             yield return TTT;
-            P.Circle(OO, Radius, 40, 60, p => OO - p, FastBullet);
+            P.Circle(OO, Radius, 50, 60, p => OO - p, FastBullet);
             yield return TTT;
             yield return T;
         }
