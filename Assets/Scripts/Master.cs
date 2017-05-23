@@ -107,13 +107,7 @@ namespace Dotge
             WaitForSeconds T = new WaitForSeconds(tempo);
             WaitForSeconds TTT = new WaitForSeconds(tempo * 0.33333f);
 
-            P.Circle(OO, Radius, 30, 60, p => OO - p, BasicBullet);
-            yield return T;
-            yield return T;
-            yield return T;
-            yield return T;
-
-            P.Line(TL, BL, 0.0f, (int)Half/2, _ => EE, BasicBullet);
+            P.Line(TL, TR, 0.0f, (int)Half/2, _ => SS, BasicBullet);
             yield return T;
             yield return T;
             yield return T;
@@ -125,14 +119,20 @@ namespace Dotge
             yield return T;
             yield return T;
 
+            P.Line(BL, BR, 2.0f, (int)Half/2, _ => NN, BasicBullet);
+            yield return T;
+            yield return T;
+            yield return T;
+            yield return T;
+
+            P.Line(TL, BL, 0.0f, (int)Half/2, _ => EE, BasicBullet);
+            yield return T;
+            yield return T;
             P.Circle(OO, Radius, 0, 90, p => OO - p, BasicBullet);
-            yield return T;
-            yield return T;
-            P.Circle(OO, Radius, 0, 90, p => OO - p, FastBullet);
             yield return TTT;
-            P.Circle(OO, Radius, 30, 90, p => OO - p, FastBullet);
+            P.Circle(OO, Radius, 30, 90, p => OO - p, BasicBullet);
             yield return TTT;
-            P.Circle(OO, Radius, 60, 90, p => OO - p, FastBullet);
+            P.Circle(OO, Radius, 60, 90, p => OO - p, BasicBullet);
             yield return TTT;
             yield return T;
         }
