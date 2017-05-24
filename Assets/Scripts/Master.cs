@@ -47,6 +47,8 @@ namespace Dotge
         Vector2 BL { get { return new Vector2(-Half, -Half); } }
         Vector2 BR { get { return new Vector2(+Half, -Half); } }
 
+        Vector2 PLAYER { get { return player.position; } }
+
         void Start()
         {
             Half = mainCameraPrefab.orthographicSize;
@@ -82,7 +84,6 @@ namespace Dotge
                 if (DevSettings.RepeatPhase)
                 {
                     n = DevSettings.PhaseAt;
-                    jukebox.PlayMain(n);
                 }
 #endif
                 yield return StartCoroutine(Phase(n));
@@ -182,41 +183,37 @@ namespace Dotge
             WaitForSeconds TT = new WaitForSeconds(tempo * 0.5f);
             WaitForSeconds TTT = new WaitForSeconds(tempo * 0.333f);
 
-            P.Nway(WW * Radius, EE, 30, 3, BasicBullet);
-            P.Nway(EE * Radius, WW, 30, 4, BasicBullet);
-            P.Circle(OO, Radius,  0, 120, p => OO - p, AccelBullet);
+            BasicBullet(TL + SS*(Half * 0.25f), EE);
+            P.Circle(OO, Radius, 0, 90, p => OO - p, AccelBullet);
             yield return T;
             yield return T;
             P.Circle(OO, Radius, 45, 90, p => OO - p, FastBullet);
             yield return T;
             yield return T;
 
-            P.Nway(NN * Radius, SS, 30, 3, BasicBullet);
-            P.Nway(SS * Radius, NN, 30, 4, BasicBullet);
+            BasicBullet(TR + SS*(Half * 0.25f + Half * 0.5f), WW);
             yield return T;
             yield return T;
             P.Circle(OO, Radius, 0, 90, p => OO - p, FastBullet);
             yield return T;
             yield return T;
 
-            P.Nway(WW * Radius, EE, 30, 4, BasicBullet);
-            P.Nway(EE * Radius, WW, 30, 3, BasicBullet);
-            P.Circle(OO, Radius,  0, 120, p => OO - p, AccelBullet);
+            BasicBullet(TL + SS*(Half * 0.25f + Half * 0.5f * 2.0f), EE);
+            P.Circle(OO, Radius,  18, 72, p => OO - p, AccelBullet);
             yield return TTT;
-            P.Circle(OO, Radius,  60, 120, p => OO - p, AccelBullet);
+            P.Circle(OO, Radius,  36, 72, p => OO - p, AccelBullet);
             yield return TTT;
-            P.Circle(OO, Radius,  0, 120, p => OO - p, AccelBullet);
+            P.Circle(OO, Radius,  54, 72, p => OO - p, AccelBullet);
             yield return TTT;
             yield return T;
             P.Circle(OO, Radius, 45, 90, p => OO - p, FastBullet);
-            P.Circle(OO, Radius,  0, 120, p => OO - p, AccelBullet);
+            P.Circle(OO, Radius,  0, 72, p => OO - p, AccelBullet);
             yield return TT;
-            P.Circle(OO, Radius,  60, 120, p => OO - p, AccelBullet);
+            P.Circle(OO, Radius,  18, 72, p => OO - p, AccelBullet);
             yield return TT;
             yield return T;
 
-            P.Nway(NN * Radius, SS, 30, 4, BasicBullet);
-            P.Nway(SS * Radius, NN, 30, 3, BasicBullet);
+            BasicBullet(TR + SS*(Half * 0.25f + Half * 0.5f * 3.0f), WW);
             yield return T;
             yield return T;
             P.Circle(OO, Radius, 45, 90, p => OO - p, FastBullet);
