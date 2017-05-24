@@ -174,7 +174,6 @@ namespace Dotge
 
         IEnumerator Phase02()
         {
-            BasicBullet(TL + SS*(Half * 0.25f), EE);
             P.Circle(OO, Radius, 0, 90, p => OO - p, AccelBullet);
             yield return T();
             yield return T();
@@ -182,14 +181,12 @@ namespace Dotge
             yield return T();
             yield return T();
 
-            BasicBullet(TR + SS*(Half * 0.25f + Half * 0.5f), WW);
             yield return T();
             yield return T();
             P.Circle(OO, Radius, 0, 90, p => OO - p, FastBullet);
             yield return T();
             yield return T();
 
-            BasicBullet(TL + SS*(Half * 0.25f + Half * 0.5f * 2.0f), EE);
             P.Circle(OO, Radius,  18, 72, p => OO - p, AccelBullet);
             yield return T(0.333f);
             P.Circle(OO, Radius,  36, 72, p => OO - p, AccelBullet);
@@ -204,7 +201,6 @@ namespace Dotge
             yield return T(0.5f);
             yield return T();
 
-            BasicBullet(TR + SS*(Half * 0.25f + Half * 0.5f * 3.0f), WW);
             yield return T();
             yield return T();
             P.Circle(OO, Radius, 45, 90, p => OO - p, FastBullet);
