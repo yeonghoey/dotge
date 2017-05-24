@@ -245,7 +245,7 @@ namespace Dotge
         WaitForSeconds T(float ratio = 1.0f)
         {
             float t = Jukebox.Tempo * ratio - Time.deltaTime;
-            if (t > 0.01)
+            if (t > 0)
             {
                 return new WaitForSeconds(t);
             }
