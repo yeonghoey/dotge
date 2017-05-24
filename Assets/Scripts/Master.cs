@@ -84,6 +84,7 @@ namespace Dotge
                 if (DevSettings.RepeatPhase)
                 {
                     n = DevSettings.PhaseAt;
+                    jukebox.PlayMain(n);
                 }
 #endif
                 yield return StartCoroutine(Phase(n));
@@ -100,131 +101,121 @@ namespace Dotge
             {
                 m = typeof(Master).GetMethod("PhaseXX", bf);
             }
-            return (IEnumerator)m.Invoke(this, new object[] {Jukebox.Tempo});
+            return (IEnumerator)m.Invoke(this, null);
         }
 
-        IEnumerator Phase00(float tempo)
+        IEnumerator Phase00()
         {
-            WaitForSeconds T = new WaitForSeconds(tempo);
-            WaitForSeconds TT = new WaitForSeconds(tempo * 0.5f);
-
             P.Line(TL, TR, 0.0f, (int)(Half * 0.5f), _ => SS, BasicBullet);
-            yield return T;
-            yield return T;
+            yield return T();
+            yield return T();
             P.Circle(OO, Radius, 0, 180, p => OO - p, FastBullet);
-            yield return T;
-            yield return T;
+            yield return T();
+            yield return T();
 
             P.Line(TR, BR, 2.0f, (int)(Half * 0.5f), _ => WW, BasicBullet);
-            yield return T;
-            yield return T;
+            yield return T();
+            yield return T();
             P.Circle(OO, Radius, 90, 180, p => OO - p, FastBullet);
-            yield return T;
-            yield return T;
+            yield return T();
+            yield return T();
 
             P.Line(BL, BR, 2.0f, (int)(Half * 0.5f), _ => NN, BasicBullet);
-            yield return T;
-            yield return T;
+            yield return T();
+            yield return T();
             P.Circle(OO, Radius, 0, 180, p => OO - p, FastBullet);
-            yield return T;
-            yield return T;
+            yield return T();
+            yield return T();
 
             P.Line(TL, BL, 0.0f, (int)(Half * 0.5f), _ => EE, BasicBullet);
-            yield return T;
-            yield return T;
+            yield return T();
+            yield return T();
             P.Circle(OO, Radius, 90, 180, p => OO - p, FastBullet);
-            yield return T;
+            yield return T();
             P.Circle(OO, Radius, 0, 180, p => OO - p, FastBullet);
-            yield return TT;
+            yield return T(0.5f);
             P.Circle(OO, Radius, 90, 180, p => OO - p, FastBullet);
-            yield return TT;
+            yield return T(0.5f);
         }
 
-        IEnumerator Phase01(float tempo)
+        IEnumerator Phase01()
         {
-            WaitForSeconds T = new WaitForSeconds(tempo);
-            WaitForSeconds TT = new WaitForSeconds(tempo * 0.5f);
-
             P.Line(NN * Radius * Sqrt2, EE * Radius * Sqrt2, 0.0f, (int)(Half * 0.75f), _ => SW, BasicBullet);
-            yield return T;
-            yield return T;
+            yield return T();
+            yield return T();
             P.Circle(OO, Radius, 45, 180, p => OO - p, FastBullet);
-            yield return T;
-            yield return T;
+            yield return T();
+            yield return T();
 
             P.Line(WW * Radius * Sqrt2, NN * Radius * Sqrt2, 2.0f, (int)(Half * 0.75f), _ => SE, BasicBullet);
-            yield return T;
-            yield return T;
+            yield return T();
+            yield return T();
             P.Circle(OO, Radius, 135, 180, p => OO - p, FastBullet);
-            yield return T;
-            yield return T;
+            yield return T();
+            yield return T();
 
             P.Line(WW * Radius * Sqrt2, SS * Radius * Sqrt2, 2.0f, (int)(Half * 0.75f), _ => NE, BasicBullet);
-            yield return T;
-            yield return T;
+            yield return T();
+            yield return T();
             P.Circle(OO, Radius, 45, 180, p => OO - p, FastBullet);
-            yield return T;
-            yield return T;
+            yield return T();
+            yield return T();
 
             P.Line(SS * Radius * Sqrt2, EE * Radius * Sqrt2, 2.0f, (int)(Half * 0.75f), _ => NW, BasicBullet);
-            yield return T;
-            yield return T;
+            yield return T();
+            yield return T();
             P.Circle(OO, Radius, 135, 180, p => OO - p, FastBullet);
-            yield return T;
+            yield return T();
             P.Circle(OO, Radius, 45, 180, p => OO - p, FastBullet);
-            yield return TT;
+            yield return T(0.5f);
             P.Circle(OO, Radius, 135, 180, p => OO - p, FastBullet);
-            yield return TT;
+            yield return T(0.5f);
         }
 
-        IEnumerator Phase02(float tempo)
+        IEnumerator Phase02()
         {
-            WaitForSeconds T = new WaitForSeconds(tempo);
-            WaitForSeconds TT = new WaitForSeconds(tempo * 0.5f);
-            WaitForSeconds TTT = new WaitForSeconds(tempo * 0.333f);
-
             BasicBullet(TL + SS*(Half * 0.25f), EE);
             P.Circle(OO, Radius, 0, 90, p => OO - p, AccelBullet);
-            yield return T;
-            yield return T;
+            yield return T();
+            yield return T();
             P.Circle(OO, Radius, 45, 90, p => OO - p, FastBullet);
-            yield return T;
-            yield return T;
+            yield return T();
+            yield return T();
 
             BasicBullet(TR + SS*(Half * 0.25f + Half * 0.5f), WW);
-            yield return T;
-            yield return T;
+            yield return T();
+            yield return T();
             P.Circle(OO, Radius, 0, 90, p => OO - p, FastBullet);
-            yield return T;
-            yield return T;
+            yield return T();
+            yield return T();
 
             BasicBullet(TL + SS*(Half * 0.25f + Half * 0.5f * 2.0f), EE);
             P.Circle(OO, Radius,  18, 72, p => OO - p, AccelBullet);
-            yield return TTT;
+            yield return T(0.333f);
             P.Circle(OO, Radius,  36, 72, p => OO - p, AccelBullet);
-            yield return TTT;
+            yield return T(0.333f);
             P.Circle(OO, Radius,  54, 72, p => OO - p, AccelBullet);
-            yield return TTT;
-            yield return T;
+            yield return T(0.333f);
+            yield return T();
             P.Circle(OO, Radius, 45, 90, p => OO - p, FastBullet);
             P.Circle(OO, Radius,  0, 72, p => OO - p, AccelBullet);
-            yield return TT;
+            yield return T(0.5f);
             P.Circle(OO, Radius,  18, 72, p => OO - p, AccelBullet);
-            yield return TT;
-            yield return T;
+            yield return T(0.5f);
+            yield return T();
 
             BasicBullet(TR + SS*(Half * 0.25f + Half * 0.5f * 3.0f), WW);
-            yield return T;
-            yield return T;
+            yield return T();
+            yield return T();
             P.Circle(OO, Radius, 45, 90, p => OO - p, FastBullet);
-            yield return T;
+            yield return T();
             P.Circle(OO, Radius, 0, 90, p => OO - p, FastBullet);
-            yield return TT;
+            yield return T(0.5f);
             P.Circle(OO, Radius, 45, 90, p => OO - p, FastBullet);
-            yield return TT;
+            yield return T(0.5f);
         }
 
-        IEnumerator PhaseXX(float tempo)
+        IEnumerator PhaseXX()
         {
             P.Line(NW*Radius + NN*7, NE*Radius + NN*7, 3.0f, 3, _ => SS,
                    (p, d) => P.Circle(p, 6, 0, 60, _ => d,
@@ -250,6 +241,20 @@ namespace Dotge
             P.RandomOnCircle(OO, Radius, 2, pos => OO - pos, WhizBullet);
             P.RandomOnCircle(OO, Radius, 1, pos => OO - pos, HomingBullet);
         }
+
+        WaitForSeconds T(float ratio = 1.0f)
+        {
+            float t = Jukebox.Tempo * ratio - Time.deltaTime;
+            if (t > 0.01)
+            {
+                return new WaitForSeconds(t);
+            }
+            else
+            {
+                return null;
+            }
+        }
+
 
         // ConstShots
         void BasicBullet(Vector2 pos, Vector2 dir)
