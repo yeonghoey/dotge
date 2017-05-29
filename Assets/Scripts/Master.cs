@@ -214,6 +214,45 @@ namespace Dotge
             yield return T(0.5f);
         }
 
+        IEnumerator Phase03()
+        {
+            P.Rect(OO, Side, Side, 5, p => OO - p, AccelBullet);
+            yield return T();
+            yield return T();
+            P.RandomOnCircle(OO, Radius, 1, p => OO - p, FastBullet);
+            yield return T();
+            yield return T();
+
+            yield return T();
+            yield return T();
+            P.RandomOnCircle(OO, Radius, 1, p => OO - p, FastBullet);
+            yield return T();
+            yield return T();
+
+            P.Nway(NN * Radius, SS,  30, 3, AccelBullet);
+            yield return T(0.333f);
+            P.Nway(NN * Radius, SS,  30, 4, AccelBullet);
+            yield return T(0.333f);
+            P.Nway(NN * Radius, SS,  30, 5, AccelBullet);
+            yield return T(0.333f);
+            yield return T();
+            P.RandomOnCircle(OO, Radius, 1, p => OO - p, FastBullet);
+            P.Nway(SS * Radius, NN,  30, 4, AccelBullet);
+            yield return T(0.5f);
+            P.Nway(SS * Radius, NN,  30, 5, AccelBullet);
+            yield return T(0.5f);
+            yield return T();
+
+            yield return T();
+            yield return T();
+            P.RandomOnCircle(OO, Radius, 1, p => OO - p, FastBullet);
+            yield return T();
+            P.RandomOnCircle(OO, Radius, 1, p => OO - p, FastBullet);
+            yield return T(0.5f);
+            P.RandomOnCircle(OO, Radius, 1, p => OO - p, FastBullet);
+            yield return T(0.5f);
+        }
+
         IEnumerator PhaseXX()
         {
             P.Line(NW*Radius + NN*7, NE*Radius + NN*7, 3.0f, 3, _ => SS,
