@@ -31,6 +31,7 @@ namespace Dotge
         private float Half;   // Side of the screen
         private float Side;   // Side of the screen
         private float Radius; // Radius of the circumscribed circle about the screen
+        private float noteTime;
 
         readonly Vector2 OO = Vector2.zero;
         readonly Vector2 NN = Vector2.up;
@@ -54,6 +55,8 @@ namespace Dotge
             Half = mainCameraPrefab.orthographicSize;
             Side = Half * 2;
             Radius = Half * Sqrt2;
+
+            noteTime = Time.timeSinceLevelLoad;
 
             // Keep player wihtin the screen
             BuildBorders(wallPrefab, Half, thickness: 2.0f);
@@ -240,7 +243,8 @@ namespace Dotge
 
         WaitForSeconds T(float ratio = 1.0f)
         {
-            float t = Jukebox.Tempo * ratio - Time.deltaTime;
+            noteTime += Jukebox.Tempo * ratio;
+            float t = noteTime - Time.timeSinceLevelLoad;
             if (t > 0)
             {
                 return new WaitForSeconds(t);
