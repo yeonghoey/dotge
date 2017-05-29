@@ -31,6 +31,7 @@ namespace Dotge
         private float Half;   // Side of the screen
         private float Side;   // Side of the screen
         private float Radius; // Radius of the circumscribed circle about the screen
+        private float Diameter;
         private float noteTime;
 
         readonly Vector2 OO = Vector2.zero;
@@ -55,6 +56,7 @@ namespace Dotge
             Half = mainCameraPrefab.orthographicSize;
             Side = Half * 2;
             Radius = Half * Sqrt2;
+            Diameter = Radius * 2;
 
             noteTime = Time.timeSinceLevelLoad;
 
@@ -219,13 +221,13 @@ namespace Dotge
             P.Rect(OO, Side, Side, 5, p => OO - p, AccelBullet);
             yield return T();
             yield return T();
-            P.RandomOnCircle(OO, Radius, 1, p => OO - p, FastBullet);
+            P.Circle(OO, Radius, 0, 360, p => OO - p, FastBullet);
             yield return T();
             yield return T();
 
             yield return T();
             yield return T();
-            P.RandomOnCircle(OO, Radius, 1, p => OO - p, FastBullet);
+            P.Circle(OO, Radius, 180, 360, p => OO - p, FastBullet);
             yield return T();
             yield return T();
 
@@ -236,7 +238,7 @@ namespace Dotge
             P.Nway(NN * Radius, SS,  30, 5, AccelBullet);
             yield return T(0.333f);
             yield return T();
-            P.RandomOnCircle(OO, Radius, 1, p => OO - p, FastBullet);
+            P.Circle(OO, Radius, 0, 360, p => OO - p, FastBullet);
             P.Nway(SS * Radius, NN,  30, 4, AccelBullet);
             yield return T(0.5f);
             P.Nway(SS * Radius, NN,  30, 5, AccelBullet);
@@ -245,13 +247,57 @@ namespace Dotge
 
             yield return T();
             yield return T();
-            P.RandomOnCircle(OO, Radius, 1, p => OO - p, FastBullet);
+            P.Circle(OO, Radius, 180, 360, p => OO - p, FastBullet);
+            yield return T();
+            P.Circle(OO, Radius, 90, 360, p => OO - p, FastBullet);
+            yield return T(0.5f);
+            P.Circle(OO, Radius, 270, 360, p => OO - p, FastBullet);
+            yield return T(0.5f);
+        }
+
+        IEnumerator Phase04()
+        {
+            P.Nway(NW * Radius, SE, 30, 3, BasicBullet);
+            P.Diamond(OO, Side*2, Side*2, 6, p => OO - p, AccelBullet);
+            yield return T();
+            yield return T();
+            P.Circle(OO, Radius, 45, 360, p => OO - p, FastBullet);
+            yield return T();
+            yield return T();
+
+            P.Nway(NE * Radius, SW, 30, 3, BasicBullet);
+            yield return T();
+            yield return T();
+            P.Circle(OO, Radius, 135, 360, p => OO - p, FastBullet);
+            yield return T();
+            yield return T();
+
+            P.Nway(SW * Radius, NE, 30, 3, BasicBullet);
+            P.Nway(SS * Radius, NN,  30, 3, AccelBullet);
+            yield return T(0.333f);
+            P.Nway(SS * Radius, NN,  30, 4, AccelBullet);
+            yield return T(0.333f);
+            P.Nway(SS * Radius, NN,  30, 5, AccelBullet);
+            yield return T(0.333f);
+            yield return T();
+            P.Circle(OO, Radius, 225, 360, p => OO - p, FastBullet);
+            P.Nway(NN * Radius, SS,  30, 4, AccelBullet);
+            yield return T(0.5f);
+            P.Nway(NN * Radius, SS,  30, 5, AccelBullet);
+            yield return T(0.5f);
+            yield return T();
+
+            P.Nway(SE * Radius, NW, 30, 3, BasicBullet);
+            yield return T();
+            yield return T();
+            P.Circle(OO, Radius, 315, 360, p => OO - p, FastBullet);
             yield return T();
             P.RandomOnCircle(OO, Radius, 1, p => OO - p, FastBullet);
             yield return T(0.5f);
             P.RandomOnCircle(OO, Radius, 1, p => OO - p, FastBullet);
             yield return T(0.5f);
         }
+
 
         IEnumerator PhaseXX()
         {
